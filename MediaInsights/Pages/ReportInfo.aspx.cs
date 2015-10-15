@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Services;
 using System.Web.UI.WebControls;
 
 namespace MediaInsights.Pages
@@ -30,6 +31,12 @@ namespace MediaInsights.Pages
         protected void ProjectContents_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
 
+        }
+
+        [WebMethod(EnableSession = true)]
+        public static int save()
+        {
+            return 0;
         }
     }
 

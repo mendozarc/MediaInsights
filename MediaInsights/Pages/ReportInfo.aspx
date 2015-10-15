@@ -15,14 +15,8 @@
                     <div class="caption">
                         <i class="fa fa-bar-chart-o"></i>Report Contents
                     </div>
-                    <%--                    <div class="tools">
-                        <a href="javascript:;" class="collapse"></a>
-                        <a href="#portlet-config" data-toggle="modal" class="config"></a>
-                        <a href="javascript:;" class="reload"></a>
-                        <a href="javascript:;" class="remove"></a>
-                    </div>--%>
                 </div>
-                <div class="portlet-body">
+                <div id="report_contents" class="portlet-body">
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-6">
@@ -32,7 +26,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <%--                            <div class="col-md-6">
+                            <!--<div class="col-md-6">
                                 <div class="btn-group pull-right">
                                     <button class="btn dropdown-toggle" data-toggle="dropdown">
                                         Tools <i class="fa fa-angle-down"></i>
@@ -49,7 +43,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>--%>
+                            </div>-->
                         </div>
                     </div>
                     <asp:Repeater ID="ProjectContents" runat="server" OnItemDataBound="ProjectContents_ItemDataBound" OnItemCommand="ProjectContents_ItemCommand">
@@ -63,7 +57,6 @@
                                         </th>
                                         <th>Layout
                                         </th>
-                                        <th/>
                                         <th/>
                                     </tr>
                                 </thead>
@@ -79,16 +72,14 @@
                                 </td>
                                 <td>
                                     <asp:LinkButton runat="server" ID="EditLink" CommandName="edit" 
-                                        CssClass="btn btn-xs blue" OnClientClick="return false;">
+                                        CssClass="edit btn btn-xs blue" OnClientClick="return false;">
                                         <i class="fa fa-edit"></i> edit
                                     </asp:LinkButton>
                                     <asp:LinkButton runat="server" ID="DeleteLink" CommandName="delete" 
-                                        CssClass="btn btn-xs red" OnClientClick="return false;">
+                                        CssClass="delete btn btn-xs red" OnClientClick="return false;">
                                         <i class="fa fa-trash-o"></i> delete
                                     </asp:LinkButton>
-                                </td>
-                                <td>
-                                   <asp:LinkButton runat="server" ID="OpenLayout"
+                                    <asp:LinkButton runat="server" ID="OpenLayout"
                                         CssClass="btn btn-xs green" OnClientClick="return false;">
                                         <i class="fa fa-link"></i> open layout
                                     </asp:LinkButton>
@@ -119,8 +110,32 @@
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core components
             Layout.init(); // init current layout
-            Demo.init(); // init demo features
+            //Demo.init(); // init demo features
             TableEditable.init();
         });
+
+        function save()
+        {
+            var portlet = '#report_contents';
+            Metronic.blockUI({ 
+                target: portlet,
+                boxed: true
+            });
+
+            saveRecord();
+
+            window.setTimeout(function () {
+                Metronic.unblockUI(portlet);
+            }, 2000);
+        }
+
+        function saveRecord() {
+            $.ajax({
+                type: 'POST',
+                url: 'ReportInfo.aspx/save',
+                
+            }
+                )
+        }
     </script>
 </asp:Content>
