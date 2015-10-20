@@ -18,6 +18,18 @@
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
+                <li>
+                    <a href="/Pages/ReportInfo.aspx">
+                        <i class="icon-basket"></i>
+                        <span class="title">Report Info</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Pages/ReportContent.aspx">
+                        <i class="icon-basket"></i>
+                        <span class="title">Report Content</span>
+                    </a>
+                </li>
                 <!--<li>
                     <a href="javascript:;">
                         <i class="icon-basket"></i>

@@ -40,7 +40,7 @@ namespace CommSights.Data
             return dt;
         }
 
-        protected int ExecuteNonQuery(string storedproc, List<SqlParameter> paramlist = null, string dbname = "CS_MAIN",
+        internal int ExecuteNonQuery(string storedproc, List<SqlParameter> paramlist = null, string dbname = "CS_MAIN",
                                            int timeout = 120)
         {
             SQLConn.ConnectionString = DB(dbname);

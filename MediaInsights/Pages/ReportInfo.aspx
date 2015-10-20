@@ -64,25 +64,23 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
-                                <td><%# DataBinder.Eval(Container.DataItem, "Title") %>
+                                <td><%# Eval("Title") %>
                                 </td>
                                 <td><%# Eval("Sequence") %>
                                 </td>
                                 <td><%# Eval("Layout") %>
                                 </td>
                                 <td>
-                                    <asp:LinkButton runat="server" ID="EditLink" CommandName="edit" 
-                                        CssClass="edit btn btn-xs blue" OnClientClick="return false;">
+                                    <input hidden="hidden" value='<%# Eval("ID") %>' />
+                                    <a class="edit btn btn-xs blue" href="javascript;">
                                         <i class="fa fa-edit"></i> edit
-                                    </asp:LinkButton>
-                                    <asp:LinkButton runat="server" ID="DeleteLink" CommandName="delete" 
-                                        CssClass="delete btn btn-xs red" OnClientClick="return false;">
+                                    </a>
+                                    <a class="delete btn btn-xs red" href="javascript;">
                                         <i class="fa fa-trash-o"></i> delete
-                                    </asp:LinkButton>
-                                    <asp:LinkButton runat="server" ID="OpenLayout"
-                                        CssClass="btn btn-xs green" OnClientClick="return false;">
+                                    </a>
+<%--                                    <a class="btn btn-xs green" href="javascript;">
                                         <i class="fa fa-link"></i> open layout
-                                    </asp:LinkButton>
+                                    </a>--%>
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -99,43 +97,20 @@
 
     <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
     <script type="text/javascript" src="/global/plugins/select2/select2.min.js"></script>
     <script type="text/javascript" src="/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="/styles/pages/scripts/table-editable.js"></script>
+    <script type="text/javascript" src="/styles/pages/scripts/table-editable.js"></script>
+    <script type="text/javascript" src="/styles/pages/scripts/form-validation.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN PROJECT PAGE SCRIPTS -->
+    <script type="text/javascript" src="/scripts/reportinfo.js"></script>
+    <!-- END PROJECT PAGE SCRIPTS -->
     <script>
-        jQuery(document).ready(function () {
-            Metronic.init(); // init metronic core components
-            Layout.init(); // init current layout
-            //Demo.init(); // init demo features
-            TableEditable.init();
-        });
-
-        function save()
-        {
-            var portlet = '#report_contents';
-            Metronic.blockUI({ 
-                target: portlet,
-                boxed: true
-            });
-
-            saveRecord();
-
-            window.setTimeout(function () {
-                Metronic.unblockUI(portlet);
-            }, 2000);
-        }
-
-        function saveRecord() {
-            $.ajax({
-                type: 'POST',
-                url: 'ReportInfo.aspx/save',
-                
-            }
-                )
-        }
+        ReportInfo.init();
     </script>
 </asp:Content>

@@ -2,12 +2,12 @@ var TableEditable = function () {
 
     var handleTable = function () {
 
-        var editLink = '<a class="edit btn btn-xs blue" href=""><i class="fa fa-edit"></i> edit</a>';
-        var deleteLink = '<a class="delete btn btn-xs red" href=""><i class="fa fa-trash-o"></i> delete</a>';
-        var openLink = '<a class="btn btn-xs green" href=""><i class="fa fa-link"></i> open layout</a>';
-        var edoLinks = editLink + deleteLink + openLink;
-        var saveLink = '<a class="edit btn btn-xs blue" href=""><i class="fa fa-save"></i> save</a>';
-        var cancelLink = '<a class="cancel btn btn-xs red" href=""><i class="fa fa-times"></i> cancel</a>';
+        var editLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-edit"></i> edit</a>';
+        var deleteLink = '<a class="delete btn btn-xs red" href="javascript;"><i class="fa fa-trash-o"></i> delete</a>';
+        //var openLink = '<a class="btn btn-xs green" href="javascript;"><i class="fa fa-link"></i> open layout</a>';
+        var edoLinks = editLink + deleteLink;// + openLink;
+        var saveLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-save"></i> save</a>';
+        var cancelLink = '<a class="cancel btn btn-xs red" href="javascript;"><i class="fa fa-times"></i> cancel</a>';
         var savecancel = saveLink + cancelLink;
         
         function restoreRow(oTable, nRow) {
@@ -27,12 +27,14 @@ var TableEditable = function () {
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
             jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
-            //jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
-            jqTds[3].innerHTML = savecancel;
+            jqTds[3].innerHTML = $("input:hidden", nRow).prop('outerHTML') + savecancel;
+
         }
 
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
+            ReportInfo.saveRow($("input:hidden", nRow).val(), jqInputs);
+
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
@@ -99,7 +101,7 @@ var TableEditable = function () {
             e.preventDefault();
 
             if (nNew && nEditing) {
-                if (confirm("Previose row not saved. Do you want to save it ?")) {
+                if (confirm("Previous row not saved. Do you want to save it ?")) {
                     saveRow(oTable, nEditing); // save
                     $(nEditing).find("td:first").html("Untitled");
                     nEditing = null;
@@ -130,7 +132,9 @@ var TableEditable = function () {
 
             var nRow = $(this).parents('tr')[0];
             oTable.fnDeleteRow(nRow);
-            alert("Deleted! Do not forget to do some ajax to sync with backend :)");
+
+            var id = $("input:hidden", nRow).val();
+            ReportInfo.deleteRow(id);
         });
 
         table.on('click', '.cancel', function (e) {
@@ -161,10 +165,6 @@ var TableEditable = function () {
                 /* Editing this row and want to save it */
                 saveRow(oTable, nEditing);
                 nEditing = null;
-
-                save();
-
-                alert("Updated! Do not forget to do some ajax to sync with backend :)");
             } else {
                 /* No edit in progress - let's start one */
                 editRow(oTable, nRow);

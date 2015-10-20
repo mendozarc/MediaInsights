@@ -352,7 +352,7 @@
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <span class="username username-hide-on-mobile">Nick </span>
                                 <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                <img alt="" class="img-circle" src="../../assets/admin/layout4/img/avatar9.jpg" />
+                                <img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar9.jpg" />
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>

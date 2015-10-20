@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Web.Services;
 using System.Web.UI.WebControls;
+
+using System.Web.Script.Services;
+
+using CommSights.Data;
 
 namespace MediaInsights.Pages
 {
@@ -16,8 +21,20 @@ namespace MediaInsights.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<Test> forDataBind = new List<Test>()
-            { new Test("Title1", 1, "Layout1"), new Test("Title2", 4, "Layout3")};
+            List<ContentSummary> forDataBind = new List<ContentSummary>();
+            ContentSummary t;
+            var report = new Report();
+            DataTable dt = report.sp_ContentSummary_ProjectBriefID(1);
+            foreach(DataRow row in dt.Rows)
+            {
+                t = new ContentSummary();
+                t.ID = new Guid(row["ID"].ToString());
+                t.Title = row["Description"] as string;
+                t.Sequence = Convert.ToInt32(row["Sequence"]);
+                t.Layout = Convert.ToInt32(row["LayoutID"]);
+
+                forDataBind.Add(t);
+            }
 
             ProjectContents.DataSource = forDataBind;
             ProjectContents.DataBind();
@@ -33,21 +50,34 @@ namespace MediaInsights.Pages
 
         }
 
-        [WebMethod(EnableSession = true)]
-        public static int save()
+        [WebMethod]
+        public static int delete(string id)
         {
-            return 0;
+            return (new Report()).sp_ContentSummary_delete(id);
+        }
+
+        [WebMethod]
+        public static int save(string contentId, int projectBrief, string title, int sequence, int layout, bool isNew)
+        {
+            var report = new Report();
+            if (isNew)
+                return report.sp_ContentSummary_insert(contentId, projectBrief, title, sequence, layout);
+            else
+                return report.sp_ContentSummary_update(contentId, title, sequence, layout);
         }
     }
 
-    public class Test
+    public class ContentSummary
     {
+        public Guid ID { get; set; }
         public string Title { get; set; }
         public int Sequence { get; set; } 
-        public string Layout { get; set; }
+        public int Layout { get; set; }
 
-        public Test(string t, int s, string l)
+        public ContentSummary() { }
+        public ContentSummary(string t, int s, int l)
         {
+            ID = Guid.NewGuid();
             Title = t;
             Sequence = s;
             Layout = l;

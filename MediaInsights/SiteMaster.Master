@@ -41,7 +41,6 @@
     <link href="/styles/css/themes/light.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="/styles/css/custom.css" rel="stylesheet" type="text/css" />
     <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -177,6 +176,7 @@
                             <asp:ScriptReference Path="styles/scripts/quick-sidebar.js" />
                             <asp:ScriptReference Path="styles/scripts/demo.js" />
                             <asp:ScriptReference Path="styles/pages/scripts/tasks.js" />
+                            <asp:ScriptReference Path="styles/scripts/commsights.js" />
                         </Scripts>
                     </asp:ScriptManager>
                     <!-- BEGIN PAGE CONTENT-->
