@@ -300,6 +300,7 @@
     <Content Include="global\plugins\uniform\jquery.uniform.min.js" />
     <Content Include="styles\css\custom.css" />
     <Content Include="styles\css\layout.css" />
+    <Content Include="styles\pages\scripts\custom.js" />
     <Content Include="styles\pages\scripts\table-editable.js" />
     <Content Include="styles\scripts\commsights.js" />
     <Content Include="styles\scripts\layout.js" />

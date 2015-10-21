@@ -21,19 +21,24 @@ var TableEditable = function () {
             oTable.fnDraw();
         }
 
-        function editRow(oTable, nRow) {
+        function editRow(oTable, nRow, isNew) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
             jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
-            jqTds[3].innerHTML = $("input:hidden", nRow).prop('outerHTML') + savecancel;
+
+            if (isNew)
+                jqTds[3].innerHTML = '<input hidden="hidden" value="' + Custom.newGuid() + '">';
+            else
+                jqTds[3].innerHTML = $("input:hidden", nRow).prop('outerHTML');
+            jqTds[3].innerHTML += savecancel;
 
         }
 
-        function saveRow(oTable, nRow) {
+        function saveRow(oTable, nRow, isNew) {
             var jqInputs = $('input', nRow);
-            ReportInfo.saveRow($("input:hidden", nRow).val(), jqInputs);
+            ReportInfo.saveRow($("input:hidden", nRow).val(), jqInputs, isNew);
 
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
@@ -102,7 +107,7 @@ var TableEditable = function () {
 
             if (nNew && nEditing) {
                 if (confirm("Previous row not saved. Do you want to save it ?")) {
-                    saveRow(oTable, nEditing); // save
+                    saveRow(oTable, nEditing, true); // save
                     $(nEditing).find("td:first").html("Untitled");
                     nEditing = null;
                     nNew = false;
@@ -118,7 +123,7 @@ var TableEditable = function () {
 
             var aiNew = oTable.fnAddData(['', '', '', '', '', '']);
             var nRow = oTable.fnGetNodes(aiNew[0]);
-            editRow(oTable, nRow);
+            editRow(oTable, nRow, true);
             nEditing = nRow;
             nNew = true;
         });
@@ -163,7 +168,7 @@ var TableEditable = function () {
             } else if (nEditing == nRow && this.innerHTML.toLowerCase().indexOf('save') >= 0) {
             //} else if (nEditing == nRow && this.innerHTML == "Save") {
                 /* Editing this row and want to save it */
-                saveRow(oTable, nEditing);
+                saveRow(oTable, nEditing, nNew);
                 nEditing = null;
             } else {
                 /* No edit in progress - let's start one */
@@ -181,5 +186,4 @@ var TableEditable = function () {
         }
 
     };
-
 }();

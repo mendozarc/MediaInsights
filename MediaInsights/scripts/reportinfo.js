@@ -59,8 +59,8 @@
             })
         },
 
-        saveRow: function (id, inputs) {
-            saveRecord(id, inputs, false);
+        saveRow: function (id, inputs, isNew) {
+            saveRecord(id, inputs, isNew);
         },
 
         deleteRow: function (id) {

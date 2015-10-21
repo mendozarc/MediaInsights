@@ -104,6 +104,7 @@
     <script type="text/javascript" src="/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" src="/styles/pages/scripts/custom.js"></script>
     <script type="text/javascript" src="/styles/pages/scripts/table-editable.js"></script>
     <script type="text/javascript" src="/styles/pages/scripts/form-validation.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
