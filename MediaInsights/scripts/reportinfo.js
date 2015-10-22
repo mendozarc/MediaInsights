@@ -49,6 +49,19 @@
             });
     }
 
+    var getLayouts = function () {
+    	$.ajax({
+    		type: 'POST',
+    		url: 'ReportInfo.aspx/getLayout',
+    		contentType: contentType,
+    		dataType: "json",
+    	})
+			//.success
+            .fail(function () {
+            	CommSights.alert("<b>Failed!</b> Failed to load layouts.", "danger");
+            });
+    }
+
     return {
         init: function () {
             jQuery(document).ready(function () {

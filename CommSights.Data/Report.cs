@@ -45,5 +45,10 @@ namespace CommSights.Data
 
             return util.ExecuteNonQuery("sp_ContentSummary_delete", paramList);
         }
+
+		public DataTable sp_Layouts_select()
+		{
+			return util.QuerytoDataTable("sp_Layouts_select");
+		}
     }
 }

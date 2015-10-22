@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.Script.Services;
 
 using CommSights.Data;
+using System.Web;
 
 namespace MediaInsights.Pages
 {
@@ -65,6 +66,13 @@ namespace MediaInsights.Pages
             else
                 return report.sp_ContentSummary_update(contentId, title, sequence, layout);
         }
+
+		[WebMethod]	
+		public static string getLayout()
+		{
+			var report = new Report();
+			return helper_util.SerializeDataTableToJSON(report.sp_Layouts_select());
+		}
     }
 
     public class ContentSummary
