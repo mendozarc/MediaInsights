@@ -90,6 +90,10 @@
     <Content Include="Controls\HeaderBar.ascx" />
     <Content Include="Controls\PageTitle.ascx" />
     <Content Include="Controls\SideBar.ascx" />
+    <Content Include="global\css\components-md.css" />
+    <Content Include="global\css\components-rounded.css" />
+    <Content Include="global\css\components.css" />
+    <Content Include="global\css\plugins-md.css" />
     <Content Include="global\css\plugins.css" />
     <Content Include="global\img\loading-spinner-grey.gif" />
     <Content Include="global\plugins\jquery-validation\js\additional-methods.js" />
@@ -271,6 +275,7 @@
     <Content Include="Pages\ReportInfo.aspx" />
     <Content Include="Site1.Master" />
     <Content Include="global\plugins\jquery-validation\README.md" />
+    <Content Include="global\css\components-md.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
