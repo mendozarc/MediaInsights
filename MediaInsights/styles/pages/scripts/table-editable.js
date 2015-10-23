@@ -35,30 +35,38 @@ var TableEditable = function () {
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-            jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">' + getLayouts();
-
+			
+            var selectedText = aData[2];
+        	var select = '<select id="layoutdropdown">';
+        	$.each($.parseJSON(getLayouts()), function () {
+        		select += '<option value="' + this.ID;
+        		select += '" title="' + this.Description;
+        		select += this.Name == selectedText ? '" selected="selected">' : '">';
+        		select += this.Name + '</option>';
+            });
+        	select += '</select>';
+        	jqTds[2].innerHTML = select;
 
             if (isNew)
                 jqTds[3].innerHTML = '<input hidden="hidden" value="' + Custom.newGuid() + '">';
             else
                 jqTds[3].innerHTML = $("input:hidden", nRow).prop('outerHTML');
             jqTds[3].innerHTML += savecancel;
-
-            jqTds[3].innerHTML +=
-
-			$($.parseJSON(getLayouts())).map(function () {
-            	return $('<option>').val(this.ID).text(this.Name);
-			}).appendTo('#sample_editable_1_length');
-
         }
 
         function saveRow(oTable, nRow, isNew) {
-            var jqInputs = $('input', nRow);
-            ReportInfo.saveRow($("input:hidden", nRow).val(), jqInputs, isNew);
+        	var jqInputs = $('input', nRow);
+        	ReportInfo.saveRow({
+        		id: jqInputs[2],
+        		title: jqInputs[0],
+        		sequence: jqInputs[1],
+        		layout: $("#layoutdropdown").val(),
+        		isNew: isNew
+        	});
 
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-            oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
+            oTable.fnUpdate($("#layoutdropdown").text(), nRow, 2, false);
             oTable.fnUpdate(edoLinks, nRow, 3, false);
             oTable.fnDraw();
         }

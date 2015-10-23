@@ -8,7 +8,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	<input id="hiddenLayouts" hidden="hidden" />
-	<select
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -59,21 +58,18 @@
                                         </th>
                                         <th>Layout
                                         </th>
-                                        <th/>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
-                                <td><%# Eval("Title") %>
-                                </td>
-                                <td><%# Eval("Sequence") %>
-                                </td>
-                                <td><%# Eval("Layout") %>
-                                </td>
-                                <td>
-                                    <input hidden="hidden" value='<%# Eval("ID") %>' />
+								<td><%# Eval("Title") %></td>
+								<td><%# Eval("Sequence") %></td>
+								<td><%# Eval("Layout") %></td>
+								<td>
+                                    <input hidden="hidden" value='<%# Eval("Id") %>' />
                                     <a class="edit btn btn-xs blue" href="javascript;">
                                         <i class="fa fa-edit"></i> edit
                                     </a>

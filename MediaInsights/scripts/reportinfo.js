@@ -5,16 +5,16 @@
     var projectBriefId = 1;// $('#project_brief_id');
     var contentType = "application/json; charset=utf-8";
 
-    var saveRecord = function (id, inputs, isNew) {
+    var saveRecord = function (args) {
         Metronic.blockUI({ target: portlet, boxed: true });
 
         var data = {
-            contentId: id,
+            contentId: args.id,
             projectBrief: projectBriefId,
-            title: inputs[0].value,
-            sequence: inputs[1].value,
-            layout: inputs[2].value,
-            isNew: isNew
+            title: args.title,
+            sequence: args.sequence,
+            layout: args.layout,
+            isNew: args.isNew
         };
 
         $.ajax({
@@ -50,7 +50,6 @@
     }
 
     var getLayouts = function () {
-    	debugger;
     	$.ajax({
     		type: 'POST',
     		url: 'ReportInfo.aspx/getLayout',
@@ -78,8 +77,8 @@
     		})
     	},
 
-    	saveRow: function (id, inputs, isNew) {
-    		saveRecord(id, inputs, isNew);
+    	saveRow: function (args) {
+    		saveRecord(args);
     	},
 
     	deleteRow: function (id) {

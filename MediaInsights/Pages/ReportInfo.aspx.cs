@@ -23,18 +23,19 @@ namespace MediaInsights.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             List<ContentSummary> forDataBind = new List<ContentSummary>();
-            ContentSummary t;
+            ContentSummary cs;
             var report = new Report();
             DataTable dt = report.sp_ContentSummary_ProjectBriefID(1);
             foreach(DataRow row in dt.Rows)
             {
-                t = new ContentSummary();
-                t.ID = new Guid(row["ID"].ToString());
-                t.Title = row["Description"] as string;
-                t.Sequence = Convert.ToInt32(row["Sequence"]);
-                t.Layout = Convert.ToInt32(row["LayoutID"]);
+                cs = new ContentSummary();
+                cs.Id = new Guid(row["ID"].ToString());
+                cs.Title = row["Description"] as string;
+                cs.Sequence = Convert.ToInt32(row["Sequence"]);
+                cs.LayoutId = Convert.ToInt32(row["LayoutID"]);
+				cs.Layout = row["LayoutName"] as string;
 
-                forDataBind.Add(t);
+				forDataBind.Add(cs);
             }
 
             ProjectContents.DataSource = forDataBind;
@@ -77,18 +78,20 @@ namespace MediaInsights.Pages
 
     public class ContentSummary
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public int Sequence { get; set; } 
-        public int Layout { get; set; }
+        public string Layout { get; set; }
+		public int LayoutId { get; set; }
 
-        public ContentSummary() { }
-        public ContentSummary(string t, int s, int l)
+		public ContentSummary() { }
+        public ContentSummary(string title, int sequence, string layout, int layoutId)
         {
-            ID = Guid.NewGuid();
-            Title = t;
-            Sequence = s;
-            Layout = l;
+            Id = Guid.NewGuid();
+            Title = title;
+            Sequence = sequence;
+            Layout = layout;
+			LayoutId = layoutId;
         }
     }
 }
