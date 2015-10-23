@@ -50,34 +50,40 @@
     }
 
     var getLayouts = function () {
+    	debugger;
     	$.ajax({
     		type: 'POST',
     		url: 'ReportInfo.aspx/getLayout',
     		contentType: contentType,
     		dataType: "json",
+    		success: function (data) {
+    			$("#hiddenLayouts").text(data.d);
+    		}
     	})
-			//.success
-            .fail(function () {
-            	CommSights.alert("<b>Failed!</b> Failed to load layouts.", "danger");
-            });
+			.fail(function () {
+				CommSights.alert("<b>Failed!</b> Failed to load layouts.", "danger");
+			});
     }
 
+
     return {
-        init: function () {
-            jQuery(document).ready(function () {
-                Metronic.init(); // init metronic core components
-                Layout.init(); // init current layout
-                //Demo.init(); // init demo features
-                TableEditable.init();
-            })
-        },
 
-        saveRow: function (id, inputs, isNew) {
-            saveRecord(id, inputs, isNew);
-        },
+    	init: function () {
+    		jQuery(document).ready(function () {
+    			Metronic.init(); // init metronic core components
+    			Layout.init(); // init current layout
+    			//Demo.init(); // init demo features
+    			TableEditable.init();
+    			getLayouts();
+    		})
+    	},
 
-        deleteRow: function (id) {
-            deleteRecord(id);
-        }
+    	saveRow: function (id, inputs, isNew) {
+    		saveRecord(id, inputs, isNew);
+    	},
+
+    	deleteRow: function (id) {
+    		deleteRecord(id);
+    	}
     };
 }();

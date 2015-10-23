@@ -2,7 +2,16 @@ var TableEditable = function () {
 
     var handleTable = function () {
 
-        var editLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-edit"></i> edit</a>';
+    	var layouts;
+    	function getLayouts() {
+    		if (typeof layouts === 'undefined') {
+    			layouts = $("#hiddenLayouts").text();
+    		}
+
+    		return layouts;
+    	}
+
+    	var editLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-edit"></i> edit</a>';
         var deleteLink = '<a class="delete btn btn-xs red" href="javascript;"><i class="fa fa-trash-o"></i> delete</a>';
         //var openLink = '<a class="btn btn-xs green" href="javascript;"><i class="fa fa-link"></i> open layout</a>';
         var edoLinks = editLink + deleteLink;// + openLink;
@@ -26,13 +35,20 @@ var TableEditable = function () {
             var jqTds = $('>td', nRow);
             jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-            jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
+            jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">' + getLayouts();
+
 
             if (isNew)
                 jqTds[3].innerHTML = '<input hidden="hidden" value="' + Custom.newGuid() + '">';
             else
                 jqTds[3].innerHTML = $("input:hidden", nRow).prop('outerHTML');
             jqTds[3].innerHTML += savecancel;
+
+            jqTds[3].innerHTML +=
+
+			$($.parseJSON(getLayouts())).map(function () {
+            	return $('<option>').val(this.ID).text(this.Name);
+			}).appendTo('#sample_editable_1_length');
 
         }
 
