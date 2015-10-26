@@ -55,18 +55,20 @@ var TableEditable = function () {
         }
 
         function saveRow(oTable, nRow, isNew) {
+        	var layout = $('#layoutdropdown');
+        	var selectedLayoutText = layout.find(":selected").text();
         	var jqInputs = $('input', nRow);
         	ReportInfo.saveRow({
-        		id: jqInputs[2],
-        		title: jqInputs[0],
-        		sequence: jqInputs[1],
-        		layout: $("#layoutdropdown").val(),
+        		id: jqInputs[2].value,
+        		title: jqInputs[0].value,
+        		sequence: jqInputs[1].value,
+        		layout: layout.val(),
         		isNew: isNew
         	});
 
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-            oTable.fnUpdate($("#layoutdropdown").text(), nRow, 2, false);
+            oTable.fnUpdate(selectedLayoutText, nRow, 2, false);
             oTable.fnUpdate(edoLinks, nRow, 3, false);
             oTable.fnDraw();
         }
