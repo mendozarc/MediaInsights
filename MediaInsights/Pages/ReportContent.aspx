@@ -10,10 +10,10 @@
                 <div class="portlet-title">
                     <div class="caption font-blue">
                         <i class="icon-speech font-blue"></i>
-                        <span class="caption-subject bold uppercase">Textarea Autosize</span>
+                        <span class="caption-subject bold uppercase"><%= ContentDescription %></span>
                         <span class="caption-helper"></span>
                     </div>
-                    <div class="actions">
+<%--                    <div class="actions">
                         <a href="javascript:;" class="btn btn-circle btn-default btn-sm">
                             <i class="fa fa-pencil"></i>Edit </a>
                         <a href="javascript:;" class="btn btn-circle btn-default btn-sm">
@@ -21,7 +21,7 @@
                         <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                             <i class="icon-wrench"></i>
                         </a>
-                    </div>
+                    </div>--%>
                 </div>
                 <div class="portlet-body form">
                     <div id="form-username" class="form-horizontal form-bordered">

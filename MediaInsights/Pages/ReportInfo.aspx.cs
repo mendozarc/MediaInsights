@@ -22,37 +22,30 @@ namespace MediaInsights.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<ContentSummary> forDataBind = new List<ContentSummary>();
-            ContentSummary cs;
-            var report = new Report();
-            DataTable dt = report.sp_ContentSummary_ProjectBriefID(1);
-            foreach(DataRow row in dt.Rows)
-            {
-                cs = new ContentSummary();
-                cs.Id = new Guid(row["ID"].ToString());
-                cs.Title = row["Description"] as string;
-                cs.Sequence = Convert.ToInt32(row["Sequence"]);
-                cs.LayoutId = Convert.ToInt32(row["LayoutID"]);
-				cs.Layout = row["LayoutName"] as string;
+			if (!IsPostBack)
+			{
+				projectBrief.DataSource = (new Report()).sp_ProjectBriefs_select();
+				projectBrief.DataTextField = "Name";
+				projectBrief.DataValueField = "ID";
+				projectBrief.DataBind();
 
-				forDataBind.Add(cs);
+				projectBrief_SelectedIndexChanged(null, null);
             }
-
-            ProjectContents.DataSource = forDataBind;
-            ProjectContents.DataBind();
-        }
+		}
 
         protected void ProjectContents_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-
+			
         }
 
-        protected void ProjectContents_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
+		protected void projectBrief_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Report r = new Report();
+			ProjectContents.DataSource = r.sp_ContentSummary_ProjectBriefID(Convert.ToInt32(projectBrief.SelectedValue)); 
+			ProjectContents.DataBind();
+		}
 
-        }
-
-        [WebMethod]
+		[WebMethod]
         public static int delete(string id)
         {
             return (new Report()).sp_ContentSummary_delete(id);
@@ -74,9 +67,9 @@ namespace MediaInsights.Pages
 			var report = new Report();
 			return helper_util.SerializeDataTableToJSON(report.sp_Layouts_select());
 		}
-    }
+	}
 
-    public class ContentSummary
+	public class ContentSummary
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

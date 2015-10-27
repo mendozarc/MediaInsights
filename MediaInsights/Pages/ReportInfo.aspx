@@ -4,20 +4,42 @@
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link rel="stylesheet" type="text/css" href="/global/plugins/select2/select2.css" />
     <link rel="stylesheet" type="text/css" href="/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
-    <!-- END PAGE LEVEL STYLES -->
+	<link rel="stylesheet" type="text/css" href="/global/plugins/bootstrap-select/bootstrap-select.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/global/plugins/jquery-multi-select/css/multi-select.css" />
+	<!-- END PAGE LEVEL STYLES -->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	<input id="hiddenLayouts" hidden="hidden" />
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet box blue">
+            <div class="portlet light">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-bar-chart-o"></i>Report Contents
+                        <i class="fa fa-bar-chart-o font-red-sunglo"></i>
+						<span class="caption-subject font-red-sunglo bold uppercase">Report Contents</span>
+						<span class="caption-helper">table of contents in the report...</span>
                     </div>
                 </div>
                 <div id="report_contents" class="portlet-body">
+					<div class="form-horizontal form-row-sepe">
+						<div class="form-body">
+							<h4 class="form-section">Project brief</h4>
+							<div class="form-group">
+								<%--<label class="control-label col-md-3"></label>--%>
+								<div class="col-md-9">
+									<asp:DropDownList id="projectBrief" runat="server"
+										class="form-control select2me" data-placeholder="Select..." 
+										OnSelectedIndexChanged="projectBrief_SelectedIndexChanged" AutoPostBack="true">
+<%--										<option value="AL">Alabama</option>
+										<option value="WY">Wyoming</option>--%>
+									</asp:DropDownList>
+									<span class="help-block">...</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
                     <div class="table-toolbar">
                         <div class="row">
                             <div class="col-md-6">
@@ -47,7 +69,7 @@
                             </div>-->
                         </div>
                     </div>
-                    <asp:Repeater ID="ProjectContents" runat="server" OnItemDataBound="ProjectContents_ItemDataBound" OnItemCommand="ProjectContents_ItemCommand">
+                    <asp:Repeater ID="ProjectContents" runat="server" OnItemDataBound="ProjectContents_ItemDataBound">
                         <HeaderTemplate>
                             <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                                 <thead>
@@ -65,11 +87,15 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
-								<td><%# Eval("Title") %></td>
-								<td><%# Eval("Sequence") %></td>
-								<td><%# Eval("Layout") %></td>
 								<td>
-                                    <input hidden="hidden" value='<%# Eval("Id") %>' />
+									<a href='/Pages/ReportContent.aspx?id=<%# Eval("ID").ToString() %>'>
+										<%# Eval("Description").ToString() %>
+									</a>
+								</td>
+								<td><%# Eval("Sequence").ToString() %></td>
+								<td><%# Eval("LayoutName").ToString() %></td>
+								<td>
+                                    <input hidden="hidden" value='<%# Eval("ID").ToString() %>' />
                                     <a class="edit btn btn-xs blue" href="javascript;">
                                         <i class="fa fa-edit"></i> edit
                                     </a>

@@ -50,5 +50,18 @@ namespace CommSights.Data
 		{
 			return util.QuerytoDataTable("sp_Layouts_select");
 		}
-    }
+
+		public DataTable sp_ProjectBriefs_select()
+		{
+			return util.QuerytoDataTable("sp_ProjectBriefs_select");
+		}
+
+		public DataTable sp_Content_select(string id)
+		{
+			List<SqlParameter> paramList = new List<SqlParameter>();
+			paramList.Add(new SqlParameter("@ContentSummaryID", new Guid(id)));
+
+			return util.QuerytoDataTable("sp_Content_select", paramList);
+		}
+	}
 }
