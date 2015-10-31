@@ -1,6 +1,8 @@
 ﻿using System;
 using CommSights.Data;
 using System.Data;
+using CommSights.Data.Enums;
+using CommSights.Data.Models;
 
 namespace MediaInsights.Pages
 {
@@ -16,7 +18,18 @@ namespace MediaInsights.Pages
 
 			Report r = new Report();
 			DataTable dt = r.sp_Content_select(Request["id"]);
-			ContentDescription = Convert.ToString(dt.Rows[0][0]);
+			ContentDescription = Convert.ToString(dt.Rows[0]["Title"]);
+
+			int layoutId = Convert.ToInt32(dt.Rows[0]["LayoutID"]);
+			switch (layoutId)
+			{
+				case (int)Layout.Conclusion:
+					callout.Visible = true;
+					break;
+				case (int)Layout.Data:
+					lnkAdd.Visible = true;
+					break;
+			}
         }
     }
 }

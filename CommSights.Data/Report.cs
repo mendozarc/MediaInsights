@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommSights.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -31,14 +32,27 @@ namespace CommSights.Data
         {
             List<SqlParameter> paramList = new List<SqlParameter>();
             paramList.Add(new SqlParameter("@ID", id));
-            paramList.Add(new SqlParameter("@description", title));
+            paramList.Add(new SqlParameter("@title", title));
             paramList.Add(new SqlParameter("@sequence", sequence));
             paramList.Add(new SqlParameter("@layout", layoutId));
 
             return util.ExecuteNonQuery("sp_ContentSummary_update", paramList);
         }
 
-        public int sp_ContentSummary_delete(string Id)
+		public int sp_ContentSummary_update(ContentSummary cs)
+		{
+			List<SqlParameter> paramList = new List<SqlParameter>();
+			paramList.Add(new SqlParameter("@ID", cs.ID));
+			paramList.Add(new SqlParameter("@title", cs.Title));
+			paramList.Add(new SqlParameter("@sequence", cs.Sequence));
+			paramList.Add(new SqlParameter("@layout", cs.Layout));
+			paramList.Add(new SqlParameter("@summary", cs.Summary));
+			paramList.Add(new SqlParameter("@callout", cs.Callout));
+
+			return util.ExecuteNonQuery("sp_ContentSummary_update", paramList);
+		}
+
+		public int sp_ContentSummary_delete(string Id)
         {
             List<SqlParameter> paramList = new List<SqlParameter>();
             paramList.Add(new SqlParameter("@ID", new Guid(Id)));

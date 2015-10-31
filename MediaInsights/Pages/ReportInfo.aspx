@@ -89,7 +89,7 @@
                             <tr>
 								<td>
 									<a href='/Pages/ReportContent.aspx?id=<%# Eval("ID").ToString() %>'>
-										<%# Eval("Description").ToString() %>
+										<%# Eval("Title").ToString() %>
 									</a>
 								</td>
 								<td><%# Eval("Sequence").ToString() %></td>

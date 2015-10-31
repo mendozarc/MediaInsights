@@ -71,7 +71,7 @@
                         <li class="separator hide"></li>
                         <!-- BEGIN NOTIFICATION DROPDOWN -->
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <!--<li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                        <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <i class="icon-bell"></i>
                                 <span class="badge badge-success">7 </span>
@@ -167,7 +167,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>-->
+                        </li>
                         <!-- END NOTIFICATION DROPDOWN -->
                         <!--<li class="separator hide"></li>-->
                         <!-- BEGIN INBOX DROPDOWN -->
