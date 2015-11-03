@@ -3,87 +3,134 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-	<div class="row">
-		<div class="col-md-12">
-			<!-- BEGIN PORTLET-->
-			<div class="portlet light form-fit">
-				<div class="portlet-title">
-					<div class="caption font-blue">
-						<i class="icon-speech font-blue"></i>
-						<span class="caption-subject bold uppercase"><%= ContentDescription %></span>
-						<span class="caption-helper"></span>
+	<!-- BEGIN PORTLET-->
+	<div class="portlet light">
+		<div class="portlet-title">
+			<div class="caption font-blue">
+				<i class="fa fa-cubes font-blue"></i>
+				<span class="caption-subject bold uppercase"><%= ContentDescription %></span>
+				<span class="caption-helper"></span>
+			</div>
+			<div class="actions">
+				<a id="lnkAdd" runat="server" visible="false"
+					href="javascript:;" class="btn green-haze btn-circle btn-sm">
+					<i class="fa fa-plus"></i>&nbsp;Add Section</a>
+				<a class="btn btn-circle btn-sm purple" href="javascript:;">
+					<i class="fa fa-save"></i>&nbsp;Save </a>
+			</div>
+		</div>
+		<div class="portlet-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<label class="col-md-2 control-label">Summary</label>
+						<div class="col-md-10">
+							<textarea class="form-control autosizeme" rows="3" placeholder="summary..."></textarea>
+						</div>
 					</div>
-					<div class="actions">
-						<%--                        <a href="javascript:;" class="btn btn-circle btn-default btn-sm">
-                            <i class="fa fa-pencil"></i>Edit </a>--%>
-						<a id="lnkAdd" runat="server" visible="false"
-							href="javascript:;" class="btn btn-circle btn-default btn-sm">
-							<i class="fa fa-plus"></i>Add </a>
-						<%--                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                            <i class="icon-wrench"></i>x
-                        </a>--%>
-					</div>
-				</div>
-				<div class="portlet-body form">
-					<div id="form-username" class="form-horizontal form-bordered">
-						<%--<form action="#" id="form-username" class="form-horizontal form-bordered">--%>
-						<div class="form-group">
-							<label class="col-md-3 control-label">Summary</label>
-							<div class="col-md-9">
-								<textarea class="form-control autosizeme" rows="4" placeholder="summary..."></textarea>
-								<%--                                <p class="help-block">
-                                    type more to see how this autosize feature works
-                                </p>--%>
-							</div>
+					<div class="form-group last" id="callout" runat="server" visible="false">
+						<label class="col-md-2 control-label">Callout</label>
+						<div class="col-md-10">
+							<textarea class="form-control autosizeme" rows="2" placeholder="callout..." />
 						</div>
-						<div class="form-group last" id="callout" runat="server" visible="false">
-							<label class="col-md-3 control-label">Callout</label>
-							<div class="col-md-9">
-								<textarea class="form-control autosizeme" rows="2" placeholder="callout..."></textarea>
-								<%--                                <p class="help-block">
-                                    apply <code>autosizeme</code> class to any textarea to activate this autosize feature
-                                </p>--%>
-							</div>
-						</div>
-						<div class="form-actions">
-							<div class="row">
-								<div class="col-md-offset-3 col-md-9">
-									<%--<button type="submit" class="btn red" id="Save" runat="server"><i class="fa fa-check"></i> Submit</button>--%>
-									<asp:Button class="btn red" ID="btnSave" runat="server" Text="Submit" />
-									<asp:Button class="btn default" ID="btnCancel" runat="server" Text="Cancel" />
-								</div>
-							</div>
-						</div>
-						<div class="portlet portlet-sortable light bg-inverse">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="icon-puzzle font-red-flamingo"></i>
-									<span class="caption-subject bold font-red-flamingo uppercase">Tools </span>
-									<span class="caption-helper">actions...</span>
-								</div>
-								<div class="tools">
-									<a href="" class="collapse"></a>
-									<%--<a href="#portlet-config" data-toggle="modal" class="config"></a>
-									<a href="" class="reload"></a>--%>
-									<a href="" class="fullscreen"></a>
-									<a href="" class="remove"></a>
-								</div>
-							</div>
-							<div class="portlet-body">
-								<h4>Heading text goes here...</h4>
-								<p>
-									Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur.
-								</p>
-							</div>
-						</div>
-
-						<%--</form>--%>
 					</div>
 				</div>
 			</div>
-			<!-- END PORTLET-->
+			<br />
+			<!-- PORTLETS -->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PORTLET -->
+					<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-cube"></i>Section 1 
+							</div>
+							<div class="tools">
+								<a href="" class="collapse"></a>
+								<a href="" class="fullscreen"></a>
+								<a href="" class="remove"></a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="portlet box blue">
+										<div class="portlet-title">
+											<div class="caption">
+												<i class="fa fa-bar-chart-o"></i>Chart 
+											</div>
+											<div class="tools">
+												<a href="" class="collapse"></a>
+												<a href="" class="fullscreen"></a>
+												<%--<a href="" class="remove"></a>--%>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<h4>Heading text goes here...</h4>
+											<p>
+												Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur.
+											</p>
+
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="portlet box blue">
+										<div class="portlet-title">
+											<div class="caption">
+												<i class="fa fa-comment"></i>Callout 
+											</div>
+											<div class="tools">
+												<a href="" class="collapse"></a>
+												<a href="" class="fullscreen"></a>
+												<%--<a href="" class="remove"></a>--%>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<div class="row">
+												<div class="col-md-12">
+													<textarea class="form-control autosizeme" rows="2" placeholder="callout..."></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="portlet box blue">
+										<div class="portlet-title">
+											<div class="caption">
+												<i class="fa fa-puzzle-piece"></i>Analysis 
+											</div>
+											<div class="tools">
+												<a href="" class="collapse"></a>
+												<a href="" class="fullscreen"></a>
+												<%--<a href="" class="remove"></a>--%>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<textarea class="form-control autosizeme" rows="3" placeholder="summary..."></textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END PORTLET -->
+				</div>
+			</div>
+			<!-- ENF OF PORTLETS -->
 		</div>
 	</div>
+	<!-- END PORTLET-->
 
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
