@@ -49,15 +49,6 @@ namespace MediaInsights {
         protected global::MediaInsights.Controls.HeaderBar HeaderBar;
         
         /// <summary>
-        /// SideBar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::MediaInsights.Controls.SideBar SideBar;
-        
-        /// <summary>
         /// PageTitle1 control.
         /// </summary>
         /// <remarks>
@@ -65,15 +56,6 @@ namespace MediaInsights {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::MediaInsights.Controls.PageTitle PageTitle1;
-        
-        /// <summary>
-        /// ScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
         /// ContentPlaceHolder1 control.

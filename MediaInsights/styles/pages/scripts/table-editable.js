@@ -13,8 +13,7 @@ var TableEditable = function () {
 
     	var editLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-edit"></i> edit</a>';
         var deleteLink = '<a class="delete btn btn-xs red" href="javascript;"><i class="fa fa-trash-o"></i> delete</a>';
-        //var openLink = '<a class="btn btn-xs green" href="javascript;"><i class="fa fa-link"></i> open layout</a>';
-        var edoLinks = editLink + deleteLink;// + openLink;
+        var edoLinks = editLink + deleteLink;
         var saveLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-save"></i> save</a>';
         var cancelLink = '<a class="cancel btn btn-xs red" href="javascript;"><i class="fa fa-times"></i> cancel</a>';
         var savecancel = saveLink + cancelLink;
@@ -33,7 +32,7 @@ var TableEditable = function () {
         function editRow(oTable, nRow, isNew) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
-            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[0] + '">';
+            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + $("a", jqTds[0]).text().trim() + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
 			
             var selectedText = aData[2];
@@ -92,8 +91,8 @@ var TableEditable = function () {
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [10, 15, 20, -1],
+                [10, 15, 20, "All"] // change per page values here
             ],
 
             // Or you can use remote translation file

@@ -6,39 +6,73 @@
 	<link rel="stylesheet" type="text/css" href="/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="/global/plugins/bootstrap-select/bootstrap-select.min.css" />
 	<link rel="stylesheet" type="text/css" href="/global/plugins/jquery-multi-select/css/multi-select.css" />
+	<link rel="stylesheet" type="text/css" href="/styles/pages/css/todo.css" />
 	<!-- END PAGE LEVEL STYLES -->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	<input id="hiddenLayouts" hidden="hidden" />
-	<!-- BEGIN EXAMPLE TABLE PORTLET-->
-	<div class="portlet light">
-		<div class="portlet-title">
-			<div class="caption">
-				<i class="fa fa-bar-chart-o font-red-sunglo"></i>
-				<span class="caption-subject font-red-sunglo bold uppercase">Report Contents</span>
-				<span class="caption-helper">table of contents in the report...</span>
-			</div>
-		</div>
-		<div id="report_contents" class="portlet-body">
-			<div class="form-horizontal form-row-sepe">
-				<div class="form-body">
-					<h4 class="form-section">Project brief</h4>
-					<div class="form-group">
-						<%--<label class="control-label col-md-3"></label>--%>
-						<div class="col-md-9">
-							<asp:DropDownList ID="projectBrief" runat="server"
-								class="form-control select2me" data-placeholder="Select..."
-								OnSelectedIndexChanged="projectBrief_SelectedIndexChanged" AutoPostBack="true">
-								<%--										<option value="AL">Alabama</option>
-										<option value="WY">Wyoming</option>--%>
-							</asp:DropDownList>
-							<span class="help-block">...</span>
-						</div>
+	<!-- BEGIN TODO SIDEBAR -->
+	<div class="todo-sidebar">
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption" data-toggle="collapse" data-target=".todo-project-list-content">
+					<span class="caption-subject font-green-sharp bold uppercase">PROJECTS </span>
+					<span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view project list</span>
+				</div>
+				<div class="actions">
+					<div class="btn-group">
+						<a class="btn green-haze btn-circle btn-sm todo-projects-config" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+							<i class="icon-settings"></i>&nbsp; <i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu pull-right">
+							<li>
+								<a href="javascript:;">
+									<i class="i"></i>New Project </a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="javascript:;">Pending <span class="badge badge-danger">4 </span>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;">Completed <span class="badge badge-success">12 </span>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;">Overdue <span class="badge badge-warning">9 </span>
+								</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="javascript:;">
+									<i class="i"></i>Archived Projects </a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
-			<br />
-			<div class="table-toolbar">
+			<div class="portlet-body todo-project-list-content">
+				<div class="todo-project-list">
+					<ul id="project_list" class="nav nav-pills nav-stacked"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END TODO SIDEBAR -->
+	<!-- BEGIN TODO CONTENT -->
+	<div class="todo-content">
+		<!-- BEGIN TABLE PORTLET-->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-bar-chart-o font-red-sunglo"></i>
+					<span class="caption-subject font-red-sunglo bold uppercase">Report Contents</span>
+					<span class="caption-helper">table of contents in the report...</span>
+				</div>
+			</div>
+			<div id="report_contents" class="portlet-body">
+				<div class="table-toolbar">
+					<!--
 				<div class="row">
 					<div class="col-md-6">
 						<div class="btn-group">
@@ -67,11 +101,12 @@
                             </div>-->
 				</div>
 			</div>
-			<asp:Repeater ID="ProjectContents" runat="server" OnItemDataBound="ProjectContents_ItemDataBound">
+			<asp:Repeater ID="ProjectContents" runat="server">
 				<HeaderTemplate>
 					<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
 						<thead>
 							<tr>
+								<th></th>
 								<th>Title
 								</th>
 								<th>Sequence
@@ -86,10 +121,10 @@
 				<ItemTemplate>
 					<tr>
 						<td>
-							<a href='/Pages/ReportContent.aspx?id=<%# Eval("ID").ToString() %>'>
-								<%# Eval("Title").ToString() %>
+							<a href='/Pages/ReportContent.aspx?id=<%# Eval("ID").ToString() %>'>a
 							</a>
 						</td>
+						<td><%# Eval("Title").ToString() %></td>
 						<td><%# Eval("Sequence").ToString() %></td>
 						<td><%# Eval("LayoutName").ToString() %></td>
 						<td>
@@ -100,21 +135,34 @@
 							<a class="delete btn btn-xs red" href="javascript;">
 								<i class="fa fa-trash-o"></i>delete
 							</a>
-							<%--                                    <a class="btn btn-xs green" href="javascript;">
-                                        <i class="fa fa-link"></i> open layout
-                                    </a>--%>
 						</td>
 					</tr>
 				</ItemTemplate>
 				<FooterTemplate>
 					</tbody>
-							</table>
+				</table>
+				<table style="width: 100%">
+					<thead>
+						<tr>
+							<th>
+								<div class="btn-group">
+									<button id="sample_editable_1_new" class="btn green">
+										Add New <i class="fa fa-plus"></i>
+									</button>
+								</div>
+							</th>
+							<th>Search</th>
+							<th>Search</th>
+						</tr>
+					</thead>
+				</table>
 				</FooterTemplate>
 			</asp:Repeater>
 		</div>
+		<!--</div>-->
+		<!-- END TABLE PORTLET-->
 	</div>
-	<!-- END EXAMPLE TABLE PORTLET-->
-
+	<!-- END TODO CONTENT -->
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	<script type="text/javascript" src="/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>

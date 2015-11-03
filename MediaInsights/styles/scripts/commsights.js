@@ -17,6 +17,7 @@
             icon = icon === undefined ? getIcon(type) : icon;
 
             return Metronic.alert({
+				container: "#bootstrap_alerts",
                 place: 'append',
                 type: type,  // success, danger, info, warning
                 message: message,

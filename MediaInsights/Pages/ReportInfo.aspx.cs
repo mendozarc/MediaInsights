@@ -22,29 +22,12 @@ namespace MediaInsights.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-			if (!IsPostBack)
-			{
-				projectBrief.DataSource = (new Report()).sp_ProjectBriefs_select();
-				projectBrief.DataTextField = "Name";
-				projectBrief.DataValueField = "ID";
-				projectBrief.DataBind();
-
-				projectBrief_SelectedIndexChanged(null, null);
-            }
-		}
-
-        protected void ProjectContents_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-			
-        }
-
-		protected void projectBrief_SelectedIndexChanged(object sender, EventArgs e)
-		{
 			Report r = new Report();
-			ProjectContents.DataSource = r.sp_ContentSummary_ProjectBriefID(Convert.ToInt32(projectBrief.SelectedValue)); 
+			ProjectContents.DataSource = r.sp_ContentSummary_ProjectBriefID(Convert.ToInt32(Request["id"]));
 			ProjectContents.DataBind();
 		}
 
+		
 		[WebMethod]
         public static int delete(string id)
         {
@@ -66,6 +49,19 @@ namespace MediaInsights.Pages
 		{
 			var report = new Report();
 			return helper_util.SerializeDataTableToJSON(report.sp_Layouts_select());
+		}
+
+		[WebMethod]
+		public static string getProjects()
+		{
+			return helper_util.SerializeDataTableToJSON((new Report()).sp_ProjectBriefs_select());
+		}
+
+		[WebMethod]
+		public static string getContents(int projectBrief)
+		{
+			Report r = new Report();
+			return helper_util.SerializeDataTableToJSON(r.sp_ContentSummary_ProjectBriefID(projectBrief));
 		}
 	}
 
