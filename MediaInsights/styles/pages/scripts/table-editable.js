@@ -32,10 +32,10 @@ var TableEditable = function () {
         function editRow(oTable, nRow, isNew) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
-            jqTds[0].innerHTML = '<input type="text" class="form-control input-small" value="' + $("a", jqTds[0]).text().trim() + '">';
             jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
+            jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
 			
-            var selectedText = aData[2];
+            var selectedText = aData[3];
         	var select = '<select id="layoutdropdown">';
         	$.each($.parseJSON(getLayouts()), function () {
         		select += '<option value="' + this.ID;
@@ -44,13 +44,13 @@ var TableEditable = function () {
         		select += this.Name + '</option>';
             });
         	select += '</select>';
-        	jqTds[2].innerHTML = select;
+        	jqTds[3].innerHTML = select;
 
             if (isNew)
-                jqTds[3].innerHTML = '<input hidden="hidden" value="' + Custom.newGuid() + '">';
+                jqTds[4].innerHTML = '<input hidden="hidden" value="' + Custom.newGuid() + '">';
             else
-                jqTds[3].innerHTML = $("input:hidden", nRow).prop('outerHTML');
-            jqTds[3].innerHTML += savecancel;
+                jqTds[4].innerHTML = $("input:hidden", nRow).prop('outerHTML');
+            jqTds[4].innerHTML += savecancel;
         }
 
         function saveRow(oTable, nRow, isNew) {
@@ -65,10 +65,10 @@ var TableEditable = function () {
         		isNew: isNew
         	});
 
-            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-            oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-            oTable.fnUpdate(selectedLayoutText, nRow, 2, false);
-            oTable.fnUpdate(edoLinks, nRow, 3, false);
+            oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
+            oTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
+            oTable.fnUpdate(selectedLayoutText, nRow, 3, false);
+            oTable.fnUpdate(edoLinks, nRow, 4, false);
             oTable.fnDraw();
         }
 
@@ -77,7 +77,8 @@ var TableEditable = function () {
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-            oTable.fnUpdate(edoLinks, nRow, 3, false);
+            oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
+            oTable.fnUpdate(edoLinks, nRow, 4, false);
             oTable.fnDraw();
         }
 

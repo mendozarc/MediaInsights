@@ -101,7 +101,27 @@
                             </div>-->
 				</div>
 			</div>
-			<asp:Repeater ID="ProjectContents" runat="server">
+			<table id="sample_editable_1" class="table table-striped table-hover table-bordered">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Title</th>
+						<th>Sequence</th>
+						<th>Layout</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<%--<asp:Repeater ID="ProjectContents" runat="server">
 				<HeaderTemplate>
 					<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
 						<thead>
@@ -157,7 +177,7 @@
 					</thead>
 				</table>
 				</FooterTemplate>
-			</asp:Repeater>
+			</asp:Repeater>--%>
 		</div>
 		<!--</div>-->
 		<!-- END TABLE PORTLET-->

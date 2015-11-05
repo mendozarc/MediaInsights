@@ -77,5 +77,16 @@ namespace CommSights.Data
 
 			return util.QuerytoDataTable("sp_Content_select", paramList);
 		}
+
+		public DataTable sp_Charts_select()
+		{
+			return util.QuerytoDataTable("sp_Charts_select");
+		}
+
+		public DataTable sp_ChartParameters_Chart(int chartId)
+		{
+			return util.QuerytoDataTable("sp_ChartParameters_Chart", 
+				new List<SqlParameter>(){ new SqlParameter("@chart", chartId) });
+		}
 	}
 }

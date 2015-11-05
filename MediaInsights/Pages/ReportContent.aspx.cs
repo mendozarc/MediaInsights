@@ -3,6 +3,7 @@ using CommSights.Data;
 using System.Data;
 using CommSights.Data.Enums;
 using CommSights.Data.Models;
+using System.Web.Services;
 
 namespace MediaInsights.Pages
 {
@@ -31,5 +32,19 @@ namespace MediaInsights.Pages
 					break;
 			}
         }
-    }
+
+		[WebMethod]
+		public static string getCharts()
+		{
+			Report r = new Report();
+			return helper_util.SerializeDataTableToJSON(r.sp_Charts_select());
+		}
+
+		[WebMethod]
+		public static string getChartParameters(int chartId)
+		{
+			Report r = new Report();
+			return helper_util.SerializeDataTableToJSON(r.sp_ChartParameters_Chart(chartId));
+		}
+	}
 }

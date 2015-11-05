@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Web.Services;
-using System.Web.UI.WebControls;
-
-using System.Web.Script.Services;
-
 using CommSights.Data;
-using System.Web;
 
 namespace MediaInsights.Pages
 {
@@ -16,18 +9,16 @@ namespace MediaInsights.Pages
         protected void Page_Init(object sender, EventArgs e)
         {
             SiteMaster m = Master as SiteMaster;
-            m.Title = "Projects";
+            m.Title = "Project Reports";
             m.SubTitle = "project briefs and reports";
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-			Report r = new Report();
-			ProjectContents.DataSource = r.sp_ContentSummary_ProjectBriefID(Convert.ToInt32(Request["id"]));
-			ProjectContents.DataBind();
+
 		}
 
-		
+		#region WebMethods
 		[WebMethod]
         public static int delete(string id)
         {
@@ -63,6 +54,7 @@ namespace MediaInsights.Pages
 			Report r = new Report();
 			return helper_util.SerializeDataTableToJSON(r.sp_ContentSummary_ProjectBriefID(projectBrief));
 		}
+		#endregion
 	}
 
 	public class ContentSummary

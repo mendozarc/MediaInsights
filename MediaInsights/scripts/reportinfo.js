@@ -1,28 +1,61 @@
 ﻿var ReportInfo = function () {
 
+	var editLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-edit"></i> edit</a>';
+	var deleteLink = '<a class="delete btn btn-xs red" href="javascript;"><i class="fa fa-trash-o"></i> delete</a>';
+
 	var handleReportInfo = function () {
 		var loadDataTable = function (id) {
-			//$.ajax({
-			//	type: 'POST',
-			//	url: 'ReportInfo.aspx/getContents',
-			//	contentType: contentType,
-			//	dataType: "json",
-			//	data: JSON.stringify({ projectBrief: id }),
-			//	success: function (data) {
-			//		$("#testtable").DataTable().destroy();
-			//		$('#testtable').empty();
+			var edLink = editLink + deleteLink;
+			var hiddenField = '<input hidden="hidden" value="{0}" />'
+			
+			$.ajax({
+				type: 'POST',
+				url: 'ReportInfo.aspx/getContents',
+				contentType: contentType,
+				dataType: "json",
+				data: JSON.stringify({ projectBrief: id }),
+				success: function (data) {
+					$("#sample_editable_1").DataTable().destroy();
 
-			//		var d = JSON.parse(data.d);
-			//		var f = d[0];
-			//		$("#testtable").DataTable({
-			//			columns: f.columns,
-			//			data: f.rows
-			//		});
-			//	}
-			//})
-			//.fail(function () {
-			//	CommSights.alert("<b>Failed!</b> Failed to load contents.", "danger");
-			//});
+					var d = JSON.parse(data.d);
+					var ba = [];
+					var id = '';
+					$.each(d, function () {
+						var a = [];
+						$.each(this, function (key, value) {
+							switch(key)
+							{
+								case 'ID':
+									id = value;
+									value = '<a href="/Pages/ReportContent.aspx?id=' + value + '"><i class="fa fa-search"></i></a>';
+									break;
+								case 'LayoutID':
+									return;
+							}
+							a.push(value);
+						})
+
+						a.push(hiddenField.replace('{0}', id) + edLink);
+						ba.push(a);
+					});
+
+					$("#sample_editable_1").DataTable({
+						data: ba,
+						order: [[2, "asc"]],
+						stateSave: true,
+						columns: [
+							{ width: "10px" },
+							null,
+							{ width: "10px" },
+							null,
+							{ width: "70px" }
+						]
+					});
+				}
+			})
+			.fail(function () {
+				CommSights.alert("<b>Failed!</b> Failed to load contents.", "danger");
+			});
 		}
 
 		$.ajax({
@@ -50,6 +83,10 @@
 					//items.push('<li><a href="?id=' + item.ID + '">' + item.Name + '</a></li>');
 				});
 				$('#project_list').append(items.join(''));
+
+				var li = $('#project_list li:first-child');
+				li.addClass("active");
+				loadDataTable(li.attr('value'));
 			}
 		})
 			.fail(function () {
@@ -64,6 +101,7 @@
 			li.addClass("active");
 			loadDataTable(li.attr('value'));
 		});
+
 	}
 
 	var portlet = '#report_contents';

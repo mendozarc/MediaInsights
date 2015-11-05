@@ -54,7 +54,7 @@
 						</div>
 						<div class="portlet-body">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<div class="portlet box blue">
 										<div class="portlet-title">
 											<div class="caption">
@@ -75,30 +75,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="portlet box blue">
-										<div class="portlet-title">
-											<div class="caption">
-												<i class="fa fa-comment"></i>Callout 
-											</div>
-											<div class="tools">
-												<a href="" class="collapse"></a>
-												<a href="" class="fullscreen"></a>
-												<%--<a href="" class="remove"></a>--%>
-											</div>
-										</div>
-										<div class="portlet-body">
-											<div class="row">
-												<div class="col-md-12">
-													<textarea class="form-control autosizeme" rows="2" placeholder="callout..."></textarea>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-8">
+								<div class="col-md-9">
 									<div class="portlet box blue">
 										<div class="portlet-title">
 											<div class="caption">
@@ -116,6 +95,27 @@
 													<div class="form-group">
 														<textarea class="form-control autosizeme" rows="3" placeholder="summary..."></textarea>
 													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="portlet box blue">
+										<div class="portlet-title">
+											<div class="caption">
+												<i class="fa fa-comment"></i>Callout 
+											</div>
+											<div class="tools">
+												<a href="" class="collapse"></a>
+												<a href="" class="fullscreen"></a>
+												<%--<a href="" class="remove"></a>--%>
+											</div>
+										</div>
+										<div class="portlet-body">
+											<div class="row">
+												<div class="col-md-12">
+													<textarea class="form-control autosizeme" rows="4" placeholder="callout..."></textarea>
 												</div>
 											</div>
 										</div>
