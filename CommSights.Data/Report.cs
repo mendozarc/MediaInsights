@@ -70,12 +70,12 @@ namespace CommSights.Data
 			return util.QuerytoDataTable("sp_ProjectBriefs_select");
 		}
 
-		public DataTable sp_Content_select(string id)
+		public DataTable sp_Content_ContentSummary(string id)
 		{
 			List<SqlParameter> paramList = new List<SqlParameter>();
 			paramList.Add(new SqlParameter("@ContentSummaryID", new Guid(id)));
 
-			return util.QuerytoDataTable("sp_Content_select", paramList);
+			return util.QuerytoDataTable("sp_Content_ContentSummary", paramList);
 		}
 
 		public DataTable sp_Charts_select()
@@ -88,5 +88,35 @@ namespace CommSights.Data
 			return util.QuerytoDataTable("sp_ChartParameters_Chart", 
 				new List<SqlParameter>(){ new SqlParameter("@chart", chartId) });
 		}
-	}
+
+		public DataTable sp_ContentSummary_ID(string contentId)
+		{
+			return util.QuerytoDataTable("sp_ContentSummary_ID",
+				new List<SqlParameter>() { new SqlParameter("@ID", contentId) });
+		}
+
+		public int sp_Content_update(Content c)
+		{
+			return util.ExecuteNonQuery("sp_Content_update", ConvertContentToSqlParameterList(c, false));
+		}
+
+		public int sp_Content_insert(Content c)
+		{
+			return util.ExecuteNonQuery("sp_Content_insert", ConvertContentToSqlParameterList(c, true));
+		}
+
+		private List<SqlParameter> ConvertContentToSqlParameterList(Content c, bool isNew)
+		{
+			var paramList = new List<SqlParameter>();
+			paramList.Add(new SqlParameter("@ID", c.ID));
+			paramList.Add(new SqlParameter("@name", c.Name));
+			if (isNew) paramList.Add(new SqlParameter("@contentSummary", c.ContentSummary));
+			paramList.Add(new SqlParameter("@sequence", c.Sequence));
+			paramList.Add(new SqlParameter("@chart", c.Chart));
+			paramList.Add(new SqlParameter("@analysis", c.Analysis));
+			paramList.Add(new SqlParameter("@callout", c.Callout));
+
+			return paramList;
+		}
+    }
 }

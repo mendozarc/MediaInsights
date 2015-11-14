@@ -17,3 +17,7 @@ Rounded Portlets
 	border-radius: 0px 0px 4px 4px !important;
 }
 */
+
+.portlet.light .form .form-body.custom {
+	padding: 10px;
+}

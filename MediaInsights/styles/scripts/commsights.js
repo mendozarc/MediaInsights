@@ -13,11 +13,12 @@
     }
 
     return {
-        alert: function (message, type, icon) {
+    	alert: function (message, type, icon, container) {
             icon = icon === undefined ? getIcon(type) : icon;
+            container = typeof container !== 'undefined' ? container : '#bootstrap_alerts';
 
             return Metronic.alert({
-				container: "#bootstrap_alerts",
+            	container: container,
                 place: 'append',
                 type: type,  // success, danger, info, warning
                 message: message,

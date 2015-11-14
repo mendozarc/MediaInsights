@@ -17,7 +17,8 @@ var TableEditable = function () {
         var saveLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-save"></i> save</a>';
         var cancelLink = '<a class="cancel btn btn-xs red" href="javascript;"><i class="fa fa-times"></i> cancel</a>';
         var savecancel = saveLink + cancelLink;
-        
+        var gotoMagnifier = '<a href="/Pages/ReportContent.aspx?id={0}"><i class="fa fa-search"></i></a>';
+
         function restoreRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
@@ -32,40 +33,44 @@ var TableEditable = function () {
         function editRow(oTable, nRow, isNew) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
-            jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-            jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
-			
+            jqTds[1].innerHTML = '<input type="text" class="form-control input-sm" value="' + aData[1] + '">';
+            jqTds[2].innerHTML = '<input type="number" class="form-control input-sm" value="' + aData[2] + '">';
+
+            jqTds[3].innerHTML = '<select class="input-sm"></select>';
+            var select = $('select', jqTds[3]);
             var selectedText = aData[3];
-        	var select = '<select id="layoutdropdown">';
         	$.each($.parseJSON(getLayouts()), function () {
-        		select += '<option value="' + this.ID;
-        		select += '" title="' + this.Description;
-        		select += this.Name == selectedText ? '" selected="selected">' : '">';
-        		select += this.Name + '</option>';
+        		select.append($("<option></option>")
+					.attr("value", this.ID)
+					.attr("title", this.Description)
+					.prop("selected", this.Name == selectedText)
+					.text(this.Name));
             });
-        	select += '</select>';
-        	jqTds[3].innerHTML = select;
 
             if (isNew)
-                jqTds[4].innerHTML = '<input hidden="hidden" value="' + Custom.newGuid() + '">';
+                jqTds[4].innerHTML = '<input type="hidden" value="' + Custom.newGuid() + '">';
             else
-                jqTds[4].innerHTML = $("input:hidden", nRow).prop('outerHTML');
+            	jqTds[4].innerHTML = $("input[type=hidden]", nRow)[0].outerHTML;
             jqTds[4].innerHTML += savecancel;
+
+            $('input', jqTds[1]).focus();
         }
 
         function saveRow(oTable, nRow, isNew) {
-        	var layout = $('#layoutdropdown');
+        	var layout = $('select', nRow);
         	var selectedLayoutText = layout.find(":selected").text();
         	var jqInputs = $('input', nRow);
+        	var contentSummaryId = $('input[type=hidden]', nRow)[0].value;
         	ReportInfo.saveRow({
-        		id: jqInputs[2].value,
+        		id: contentSummaryId,
         		title: jqInputs[0].value,
         		sequence: jqInputs[1].value,
         		layout: layout.val(),
         		isNew: isNew
         	});
 
-            oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
+        	oTable.fnUpdate(gotoMagnifier.replace('{0}', contentSummaryId), nRow, 0, false);
+        	oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
             oTable.fnUpdate(selectedLayoutText, nRow, 3, false);
             oTable.fnUpdate(edoLinks, nRow, 4, false);

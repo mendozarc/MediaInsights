@@ -96,6 +96,8 @@
     <Content Include="global\css\plugins-md.css" />
     <Content Include="global\css\plugins.css" />
     <Content Include="global\img\loading-spinner-grey.gif" />
+    <Content Include="global\plugins\autosize\autosize.min.js" />
+    <Content Include="global\plugins\bootbox\bootbox.min.js" />
     <Content Include="global\plugins\bootstrap-colorpicker\css\colorpicker.css" />
     <Content Include="global\plugins\bootstrap-colorpicker\img\alpha.png" />
     <Content Include="global\plugins\bootstrap-colorpicker\img\hue.png" />
@@ -997,6 +999,7 @@
     <Content Include="global\scripts\metronic.js" />
     <Content Include="Index.aspx" />
     <Content Include="packages.config" />
+    <Content Include="scripts\reportcontent.js" />
     <Content Include="scripts\reportinfo.js" />
     <Content Include="SiteMaster.Master" />
     <Content Include="global\plugins\bootstrap-switch\css\bootstrap-switch.css" />
@@ -1158,6 +1161,9 @@
     <Content Include="global\plugins\select2\README.md" />
     <Content Include="global\plugins\select2\select2.jquery.json" />
     <Content Include="global\plugins\select2\select2_locale_en.js.template" />
+    <Content Include="global\plugins\bootbox\LICENSE.md" />
+    <Content Include="global\plugins\bootbox\README.md" />
+    <Content Include="global\plugins\autosize\readme.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1200,6 +1206,7 @@
     <Content Include="styles\pages\css\tasks.css" />
     <Content Include="styles\pages\scripts\custom.js" />
     <Content Include="styles\pages\scripts\table-editable.js" />
+    <Content Include="styles\scripts\commsights-chart.js" />
     <Content Include="styles\scripts\commsights.js" />
     <Content Include="styles\scripts\layout.js" />
     <Content Include="styles\scripts\quick-sidebar.js" />

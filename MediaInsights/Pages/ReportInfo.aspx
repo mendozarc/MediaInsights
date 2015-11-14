@@ -5,7 +5,6 @@
 	<link rel="stylesheet" type="text/css" href="/global/plugins/select2/select2.css" />
 	<link rel="stylesheet" type="text/css" href="/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="/global/plugins/bootstrap-select/bootstrap-select.min.css" />
-	<link rel="stylesheet" type="text/css" href="/global/plugins/jquery-multi-select/css/multi-select.css" />
 	<link rel="stylesheet" type="text/css" href="/styles/pages/css/todo.css" />
 	<!-- END PAGE LEVEL STYLES -->
 </asp:Content>
@@ -68,6 +67,11 @@
 					<i class="fa fa-bar-chart-o font-red-sunglo"></i>
 					<span class="caption-subject font-red-sunglo bold uppercase">Report Contents</span>
 					<span class="caption-helper">table of contents in the report...</span>
+				</div>
+				<div class="actions">
+					<button id="sample_editable_1_new" class="btn btn-circle green">
+						<i class="fa fa-plus"></i>&nbsp;Add New
+					</button>
 				</div>
 			</div>
 			<div id="report_contents" class="portlet-body">

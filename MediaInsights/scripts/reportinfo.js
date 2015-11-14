@@ -2,29 +2,79 @@
 
 	var editLink = '<a class="edit btn btn-xs blue" href="javascript;"><i class="fa fa-edit"></i> edit</a>';
 	var deleteLink = '<a class="delete btn btn-xs red" href="javascript;"><i class="fa fa-trash-o"></i> delete</a>';
+	var table = $("#sample_editable_1");
+	var contentType = "application/json; charset=utf-8";
+	var portlet = '#report_contents';
+	var projectBriefId = '';
 
 	var handleReportInfo = function () {
-		var loadDataTable = function (id) {
+
+		// load layouts
+		$.ajax({
+			type: 'POST',
+			url: 'ReportInfo.aspx/getLayout',
+			contentType: contentType,
+			dataType: "json",
+			success: function (data) {
+				$("#hiddenLayouts").text(data.d);
+			}
+		})
+			.fail(function () {
+				CommSights.alert("<b>Failed!</b> Failed to load layouts.", "danger");
+			});
+
+		// load projects
+		$.ajax({
+			type: 'POST',
+			url: 'ReportInfo.aspx/getProjects',
+			contentType: contentType,
+			dataType: "json",
+			success: function (data) {
+				var items = [];
+				$.each(JSON.parse(data.d), function (i, item) {
+					items.push('<li value="' + item.ID + '"><a href="javascript:;">' + item.Name + '</a></li>');
+				});
+				$('#project_list').append(items.join(''));
+				setProjectBrief($('#project_list li:first-child'));
+			}
+		})
+			.fail(function () {
+				CommSights.alert("<b>Failed!</b> Failed to load projects.", "danger");
+			});
+
+		// set project
+		$("#project_list").on('click', "li", function (e) {
+			var li = $(this);
+			if (li.hasClass("active")) return;
+			$("#project_list li").removeClass("active");
+			setProjectBrief(li);
+		});
+
+		function setProjectBrief(li) {
+			li.addClass("active");
+			projectBriefId = li.attr('value');
+			loadDataTable();
+		}
+
+		function loadDataTable() {
 			var edLink = editLink + deleteLink;
-			var hiddenField = '<input hidden="hidden" value="{0}" />'
-			
+			var hiddenField = '<input type="hidden" value="{0}"></input>'
+
 			$.ajax({
 				type: 'POST',
 				url: 'ReportInfo.aspx/getContents',
 				contentType: contentType,
 				dataType: "json",
-				data: JSON.stringify({ projectBrief: id }),
+				data: JSON.stringify({ projectBrief: projectBriefId }),
 				success: function (data) {
-					$("#sample_editable_1").DataTable().destroy();
-
-					var d = JSON.parse(data.d);
+					table.DataTable().destroy();
+					table.empty();
 					var ba = [];
-					var id = '';
-					$.each(d, function () {
+					$.each(JSON.parse(data.d), function () {
 						var a = [];
+						var id = '';
 						$.each(this, function (key, value) {
-							switch(key)
-							{
+							switch (key) {
 								case 'ID':
 									id = value;
 									value = '<a href="/Pages/ReportContent.aspx?id=' + value + '"><i class="fa fa-search"></i></a>';
@@ -39,16 +89,16 @@
 						ba.push(a);
 					});
 
-					$("#sample_editable_1").DataTable({
+					table.DataTable({
 						data: ba,
 						order: [[2, "asc"]],
 						stateSave: true,
 						columns: [
-							{ width: "10px" },
-							null,
-							{ width: "10px" },
-							null,
-							{ width: "70px" }
+							{ "width": "20px", "searchable": false, "orderable": false },
+							{ "title": "Title" },
+							{ "title": "Sequence", "width": "70px", "searchable": false },
+							{ "title": "Layout" },
+							{ "title": "Actions", "width": "140px", "searchable": false, "orderable": false }
 						]
 					});
 				}
@@ -57,59 +107,9 @@
 				CommSights.alert("<b>Failed!</b> Failed to load contents.", "danger");
 			});
 		}
-
-		$.ajax({
-			type: 'POST',
-			url: 'ReportInfo.aspx/getLayout',
-			contentType: contentType,
-			dataType: "json",
-			success: function (data) {
-				$("#hiddenLayouts").text(data.d);
-			}
-		})
-			.fail(function () {
-				CommSights.alert("<b>Failed!</b> Failed to load layouts.", "danger");
-			});
-
-		$.ajax({
-			type: 'POST',
-			url: 'ReportInfo.aspx/getProjects',
-			contentType: contentType,
-			dataType: "json",
-			success: function (data) {
-				var items = [];
-				$.each(JSON.parse(data.d), function (i, item) {
-					items.push('<li value="' + item.ID + '"><a href="javascript:;">' + item.Name + '</a></li>');
-					//items.push('<li><a href="?id=' + item.ID + '">' + item.Name + '</a></li>');
-				});
-				$('#project_list').append(items.join(''));
-
-				var li = $('#project_list li:first-child');
-				li.addClass("active");
-				loadDataTable(li.attr('value'));
-			}
-		})
-			.fail(function () {
-				CommSights.alert("<b>Failed!</b> Failed to load projects.", "danger");
-			});
-
-		$("#project_list").on('click', "li", function (e) {
-			var li = $(this);
-			if (li.hasClass("active")) return;
-
-			$("#project_list li").removeClass("active");
-			li.addClass("active");
-			loadDataTable(li.attr('value'));
-		});
-
 	}
 
-	var portlet = '#report_contents';
-	var table = $('#sample_editable_1');
-	var projectBriefId = 1;// $('#project_brief_id');
-	var contentType = "application/json; charset=utf-8";
-
-	var saveRecord = function (args) {
+	function saveRecord (args) {
 		Metronic.blockUI({ target: portlet, boxed: true });
 
 		var data = {
@@ -134,9 +134,9 @@
             .always(function () {
             	Metronic.unblockUI(portlet);
             });
-	};
+	}
 
-	var deleteRecord = function (id) {
+	function deleteRecord (id) {
 		Metronic.blockUI({ target: portlet, boxed: true });
 		$.ajax({
 			type: 'POST',
@@ -153,51 +153,14 @@
             });
 	}
 
-	var getLayouts = function () {
-		$.ajax({
-			type: 'POST',
-			url: 'ReportInfo.aspx/getLayout',
-			contentType: contentType,
-			dataType: "json",
-			success: function (data) {
-				$("#hiddenLayouts").text(data.d);
-			}
-		})
-			.fail(function () {
-				CommSights.alert("<b>Failed!</b> Failed to load layouts.", "danger");
-			});
-	}
-
-	var getProjects = function () {
-		$.ajax({
-			type: 'POST',
-			url: 'ReportInfo.aspx/getProjects',
-			contentType: contentType,
-			dataType: "json",
-			success: function (data) {
-				var items = [];
-				$.each(JSON.parse(data.d), function (i, item) {
-					items.push('<li><a href="?id=' + item.ID + '">' + item.Name + '</a></li>');
-				});
-				$('#project_list').append(items.join(''));
-			}
-		})
-			.fail(function () {
-				CommSights.alert("<b>Failed!</b> Failed to load layouts.", "danger");
-			});
-	}
-
 	return {
 
 		init: function () {
 			jQuery(document).ready(function () {
 				Metronic.init(); // init metronic core components
 				Layout.init(); // init current layout
-				//Demo.init(); // init demo features
 				TableEditable.init();
 				handleReportInfo();
-				//getLayouts();
-				//getProjects();
 			})
 		},
 

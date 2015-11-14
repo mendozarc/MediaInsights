@@ -56,23 +56,4 @@ namespace MediaInsights.Pages
 		}
 		#endregion
 	}
-
-	public class ContentSummary
-    {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public int Sequence { get; set; } 
-        public string Layout { get; set; }
-		public int LayoutId { get; set; }
-
-		public ContentSummary() { }
-        public ContentSummary(string title, int sequence, string layout, int layoutId)
-        {
-            Id = Guid.NewGuid();
-            Title = title;
-            Sequence = sequence;
-            Layout = layout;
-			LayoutId = layoutId;
-        }
-    }
 }
