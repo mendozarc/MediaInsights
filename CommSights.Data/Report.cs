@@ -65,9 +65,9 @@ namespace CommSights.Data
 			return util.QuerytoDataTable("sp_Layouts_select");
 		}
 
-		public DataTable sp_ProjectBriefs_select()
+		public DataTable sp_ac_briefget()
 		{
-			return util.QuerytoDataTable("sp_ProjectBriefs_select");
+			return util.QuerytoDataTable("sp_ac_briefget");
 		}
 
 		public DataTable sp_Content_ContentSummary(string id)
@@ -105,6 +105,12 @@ namespace CommSights.Data
 			return util.ExecuteNonQuery("sp_Content_insert", ConvertContentToSqlParameterList(c, true));
 		}
 
+		public int sp_Contents_delete(string contentId)
+		{
+			return util.ExecuteNonQuery("sp_Contents_delete",
+				new List<SqlParameter>() { new SqlParameter("@ID", new Guid(contentId)) });
+		}
+
 		private List<SqlParameter> ConvertContentToSqlParameterList(Content c, bool isNew)
 		{
 			var paramList = new List<SqlParameter>();
@@ -113,6 +119,7 @@ namespace CommSights.Data
 			if (isNew) paramList.Add(new SqlParameter("@contentSummary", c.ContentSummary));
 			paramList.Add(new SqlParameter("@sequence", c.Sequence));
 			paramList.Add(new SqlParameter("@chart", c.Chart));
+			paramList.Add(new SqlParameter("@chartTitle", c.ChartTitle));
 			paramList.Add(new SqlParameter("@analysis", c.Analysis));
 			paramList.Add(new SqlParameter("@callout", c.Callout));
 

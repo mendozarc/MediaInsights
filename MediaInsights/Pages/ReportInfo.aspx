@@ -15,10 +15,10 @@
 		<div class="portlet light">
 			<div class="portlet-title">
 				<div class="caption" data-toggle="collapse" data-target=".todo-project-list-content">
-					<span class="caption-subject font-green-sharp bold uppercase">PROJECTS </span>
+					<span class="caption-subject font-green-sharp bold uppercase">PROJECT BRIEFS</span>
 					<span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view project list</span>
 				</div>
-				<div class="actions">
+				<%--<div class="actions">
 					<div class="btn-group">
 						<a class="btn green-haze btn-circle btn-sm todo-projects-config" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 							<i class="icon-settings"></i>&nbsp; <i class="fa fa-angle-down"></i>
@@ -48,7 +48,7 @@
 							</li>
 						</ul>
 					</div>
-				</div>
+				</div>--%>
 			</div>
 			<div class="portlet-body todo-project-list-content">
 				<div class="todo-project-list">
@@ -71,6 +71,9 @@
 				<div class="actions">
 					<button id="sample_editable_1_new" class="btn btn-circle green">
 						<i class="fa fa-plus"></i>&nbsp;Add New
+					</button>
+					<button id="generate_report" runat="server" class="btn blue-hoki" onserverclick="generate_report_ServerClick">
+						<i class="fa fa-gears"></i>&nbsp;Generate Report
 					</button>
 				</div>
 			</div>

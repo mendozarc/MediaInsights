@@ -1,0 +1,10 @@
+﻿<Rectangle Name="PageBreak">
+	<PageBreak>
+		<BreakLocation>End</BreakLocation>
+	</PageBreak>
+	<KeepTogether>true</KeepTogether>
+	<Top>2cm</Top>
+	<Left>0cm</Left>
+	<Height>0.2cm</Height>
+	<Width>1cm</Width>
+</Rectangle>

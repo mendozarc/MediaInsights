@@ -26,13 +26,13 @@
 		// load projects
 		$.ajax({
 			type: 'POST',
-			url: 'ReportInfo.aspx/getProjects',
+			url: 'ReportInfo.aspx/getBriefs',
 			contentType: contentType,
 			dataType: "json",
 			success: function (data) {
 				var items = [];
 				$.each(JSON.parse(data.d), function (i, item) {
-					items.push('<li value="' + item.ID + '"><a href="javascript:;">' + item.Name + '</a></li>');
+					items.push('<li value="' + item.briefid + '"><a href="javascript:;">' + item.briefname + '</a></li>');
 				});
 				$('#project_list').append(items.join(''));
 				setProjectBrief($('#project_list li:first-child'));

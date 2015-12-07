@@ -1,55 +1,51 @@
-﻿
-var stackedColumn = {
-	isStacked: true
-};
+﻿google.load("visualization", "1.1", { packages: ["corechart", "bar"] });
+google.setOnLoadCallback(CommSights.loadChart);
 
-var percentStackedColumn = {
-	isStacked: "percent"
-};
+var setOptions = function (chart) {
+	var options = {};
+
+	switch (chart) {
+		case "2":
+		case "5":
+			options.isStacked = true;
+			break;
+		case "3":
+		case "6":
+			options.isStacked = "percent";
+			break;
+	}
+
+	options.chartArea = { width: "60%", height: "70%" };
+	options.titleTextStyle = { color: "#555", fontName: "Open Sans", bold: true };
+	options.width = 500;
+	options.height = 300;
+	options.bar = { groupWidth: "75%" };
+	options.legend = { alignment: "center", textStyle: { fontName: "Open Sans", fontSize: 11 } };
+	options.fontName = "Open Sans";
+	options.fontSize = 12;
+
+	return options;
+}
 
 CommSights.loadChart = function (data, args, container) {
-	google.load("visualization", "1", { packages: ["corechart", "bar"] });
-	google.setOnLoadCallback(drawChart());
+	var dt = google.visualization.arrayToDataTable(data);
 
-	function drawChart() {
-		var dt = google.visualization.arrayToDataTable(data);
-
-		//var view = new google.visualization.DataView(dt);
-		//view.setColumns([0, 1,
-		//				 {
-		//				 	calc: "stringify",
-		//				 	sourceColumn: 1,
-		//				 	type: "string",
-		//				 	role: "annotation"
-		//				 },
-		//				 2]);
-		//var options = {
-		//	chartArea: {  width: "60%", height: "70%" },
-		//	title: args.title,
-		//	titleTextStyle: { color: "#555", fontName: "Open Sans", bold: true },
-		//	width: 500, height: 300,
-		//	bar: { groupWidth: "75%" },
-		//	legend: { alignment: "center", textStyle: { fontName: "Open Sans", fontSize: 11 } },
-		//	isStacked: true,
-		//	fontName: "Open Sans", fontSize: 12
-		//};
-
-		var options = stackedColumn;
-		if (args.chartType == 1) { options = percentStackedColumn; }
-
-		options.chartArea = { width: "60%", height: "70%" };
-		options.title = args.title;
-		options.titleTextStyle = { color: "#555", fontName: "Open Sans", bold: true };
-		options.width = 500;
-		options.height = 300;
-		options.bar = { groupWidth: "75%" };
-		options.legend = { alignment: "center", textStyle: { fontName: "Open Sans", fontSize: 11 } };
-		options.fontName = "Open Sans";
-		options.fontSize = 12;
-
-		if (args.chartType !== 'undefined') {
-			var chart = new google.visualization.ColumnChart(container);
-			chart.draw(dt, options);
+	if (args.chartType !== 'undefined') {
+		var chart = null;
+		switch(args.chartType) {
+			case "1":
+				chart = new google.visualization.ColumnChart(container);
+				break;
+			case "2":
+				chart = new google.visualization.BarChart(container);
+				break;
 		}
+		var options = setOptions(args.chart);
+		options.title = args.title;
+		google.visualization.events.addListener(chart, 'ready', function () {
+			args.elementStoreImage.attr('data-image', chart.getImageURI());
+		});
+
+		chart.draw(dt, options);
 	}
 }

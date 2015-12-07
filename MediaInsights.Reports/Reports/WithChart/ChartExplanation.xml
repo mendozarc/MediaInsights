@@ -1,0 +1,51 @@
+﻿<Textbox Name="ChartExplanation">
+	<CanGrow>true</CanGrow>
+	<KeepTogether>true</KeepTogether>
+	<Paragraphs>
+		<Paragraph>
+			<TextRuns>
+				<TextRun>
+					<Value>Data</Value>
+					<Style>
+						<FontStyle>Normal</FontStyle>
+						<FontFamily>Calibri Light</FontFamily>
+						<FontSize>9pt</FontSize>
+						<FontWeight>Bold</FontWeight>
+						<TextDecoration>None</TextDecoration>
+						<Color>#262626</Color>
+					</Style>
+				</TextRun>
+			</TextRuns>
+			<Style />
+		</Paragraph>
+		<Paragraph>
+			<TextRuns>
+				<TextRun>
+					<Value>Test Data</Value>
+					<Style>
+						<FontStyle>Normal</FontStyle>
+						<FontFamily>Calibri Light</FontFamily>
+						<FontSize>9pt</FontSize>
+						<FontWeight>Normal</FontWeight>
+						<TextDecoration>None</TextDecoration>
+						<Color>#262626</Color>
+					</Style>
+				</TextRun>
+			</TextRuns>
+			<Style />
+		</Paragraph>
+	</Paragraphs>
+	<Top>8.1cm</Top>
+	<Left>0cm</Left>
+	<Height>1cm</Height>
+	<Width>13.5cm</Width>
+	<Style>
+		<Border>
+			<Style>None</Style>
+		</Border>
+		<PaddingLeft>2pt</PaddingLeft>
+		<PaddingRight>2pt</PaddingRight>
+		<PaddingTop>2pt</PaddingTop>
+		<PaddingBottom>2pt</PaddingBottom>
+	</Style>
+</Textbox>

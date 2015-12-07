@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Web.Services;
 using CommSights.Data;
+using MediaInsights.Reports;
+using MRW = Microsoft.Reporting.WebForms;
+using System.IO;
 
 namespace MediaInsights.Pages
 {
@@ -43,9 +46,9 @@ namespace MediaInsights.Pages
 		}
 
 		[WebMethod]
-		public static string getProjects()
+		public static string getBriefs()
 		{
-			return helper_util.SerializeDataTableToJSON((new Report()).sp_ProjectBriefs_select());
+			return helper_util.SerializeDataTableToJSON((new Report()).sp_ac_briefget());
 		}
 
 		[WebMethod]
@@ -55,5 +58,46 @@ namespace MediaInsights.Pages
 			return helper_util.SerializeDataTableToJSON(r.sp_ContentSummary_ProjectBriefID(projectBrief));
 		}
 		#endregion
+
+		protected void generate_report_ServerClick(object sender, EventArgs e)
+		{
+			ReportGenerator.GenerateReport();
+
+			string fileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".docx";
+			string fullFilePath = Server.MapPath("~/download/") + fileName;
+			string extension = string.Empty;
+			string encoding = string.Empty;
+			//string mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+			string mimeType = string.Empty;
+            string[] streams;
+			MRW.Warning[] warnings;
+
+			MRW.LocalReport report = new MRW.LocalReport();
+			report.ReportPath = Server.MapPath("~/CoverPage.rdlc");
+			//report.ReportEmbeddedResource = "MediaInsights.Reports.CoverPage.rdlc";
+			//ReportDataSource rds = new ReportDataSource();
+			//rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
+			//rds.Value = dsData;
+			//report.DataSources.Add(rds);
+			//WORDOPENXML
+			Byte[] mybytes = report.Render("WORDOPENXML", null,
+							out mimeType, out encoding,
+							out extension, out streams, out warnings); 
+			using (FileStream fs = File.Create(fullFilePath))
+			{
+				fs.Write(mybytes, 0, mybytes.Length);
+			}
+
+			Response.ClearHeaders();
+			Response.ClearContent();
+			Response.Buffer = true;
+			Response.Clear();
+			Response.ContentType = mimeType;
+			Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
+			Response.WriteFile(fullFilePath);
+			Response.Flush();
+			Response.Close();
+			Response.End();
+		}
 	}
 }

@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+  <AutoRefresh>0</AutoRefresh>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="Title">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>MEDIA INSIGHTS REPORT</Value>
+                    <Style>
+                      <FontSize>72pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                      <Color>#404040</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>4cm</Top>
+            <Left>0cm</Left>
+            <Height>8.69625cm</Height>
+            <Width>15.12062cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="ExecPageBreak">
+            <PageBreak>
+              <BreakLocation>End</BreakLocation>
+            </PageBreak>
+            <KeepTogether>true</KeepTogether>
+            <Top>31.3cm</Top>
+            <Left>0cm</Left>
+            <Height>0.2cm</Height>
+            <Width>1cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style />
+          </Rectangle>
+          <Textbox Name="ProjectBrief">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!brief.Value</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>26pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>#ae1015</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>13.5cm</Top>
+            <Left>0cm</Left>
+            <Height>1.235cm</Height>
+            <Width>15.12062cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Period">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!briefPeriod.Value</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <Color>#ae1015</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>18.46474cm</Top>
+            <Left>0cm</Left>
+            <Height>0.78521cm</Height>
+            <Width>6.17771cm</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="Rectangle3">
+            <KeepTogether>true</KeepTogether>
+            <Top>14.9cm</Top>
+            <Left>0cm</Left>
+            <Height>0.2cm</Height>
+            <Width>1.5cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BackgroundColor>#ae1015</BackgroundColor>
+            </Style>
+          </Rectangle>
+          <Rectangle Name="Rectangle4">
+            <PageBreak>
+              <BreakLocation>End</BreakLocation>
+              <ResetPageNumber>true</ResetPageNumber>
+            </PageBreak>
+            <KeepTogether>true</KeepTogether>
+            <Top>19.5cm</Top>
+            <Left>0cm</Left>
+            <Height>0.2cm</Height>
+            <Width>1cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Textbox Name="TableContentsTitle">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Contents</Value>
+                    <Style>
+                      <FontSize>22pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>#ae1015</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>19.7cm</Top>
+            <Left>0cm</Left>
+            <Height>1.07625cm</Height>
+            <Width>9.485cm</Width>
+            <ZIndex>6</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="Rectangle">
+            <KeepTogether>true</KeepTogether>
+            <Top>21cm</Top>
+            <Left>0cm</Left>
+            <Height>0.2cm</Height>
+            <Width>1.5cm</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BackgroundColor>#ae1015</BackgroundColor>
+            </Style>
+          </Rectangle>
+          <Textbox Name="TableOfContents">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!tableContents.Value</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#262626</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>21.8cm</Top>
+            <Left>0cm</Left>
+            <Height>0.6cm</Height>
+            <Width>16cm</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="ContactUs">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>For more questions or regarding any issues with our services, please contact:
+
+</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri Light</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#3b3838</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Helen. Huynh Ngoc
+</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri Light</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Business Director</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri Light</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>ngoc.huynh@minsights.co</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri Light</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#000000</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <LeftIndent>0cm</LeftIndent>
+                <RightIndent>0cm</RightIndent>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>0908.12.85.83</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri Light</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#444444</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <LeftIndent>0cm</LeftIndent>
+                <RightIndent>0cm</RightIndent>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value xml:space="preserve">
+</Value>
+                    <Style>
+                      <FontFamily />
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>We will be happy to assist you. 
+Thank you for using our services.</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri Light</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#262626</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>23.25cm</Top>
+            <Left>0cm</Left>
+            <Height>3.67984cm</Height>
+            <Width>16cm</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="PageBreak">
+            <PageBreak>
+              <BreakLocation>End</BreakLocation>
+              <ResetPageNumber>true</ResetPageNumber>
+            </PageBreak>
+            <KeepTogether>true</KeepTogether>
+            <Top>27.1cm</Top>
+            <Left>0cm</Left>
+            <Height>0.2cm</Height>
+            <Width>1cm</Width>
+            <ZIndex>10</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Textbox Name="ExecutiveSummaryTitle">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Executive Summary</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontSize>22pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#ae1015</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>27.3cm</Top>
+            <Left>0cm</Left>
+            <Height>1.05cm</Height>
+            <Width>8cm</Width>
+            <ZIndex>11</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Line Name="Line1">
+            <Top>28.42675cm</Top>
+            <Left>0cm</Left>
+            <Height>0cm</Height>
+            <Width>13.40083cm</Width>
+            <ZIndex>12</ZIndex>
+            <Style>
+              <Border>
+                <Color>#ae1015</Color>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="ExecutiveSummary">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!executiveSummary.Value</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri Light</FontFamily>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                      <Color>#262626</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>29.1cm</Top>
+            <Left>0cm</Left>
+            <Height>1.97441cm</Height>
+            <Width>13.40083cm</Width>
+            <ZIndex>13</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="AccountLogo">
+            <Source>Embedded</Source>
+            <Value>logo</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>16.35cm</Top>
+            <Left>0cm</Left>
+            <Height>1.58278cm</Height>
+            <Width>3.12cm</Width>
+            <ZIndex>14</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+        </ReportItems>
+        <Height>31.85402cm</Height>
+        <Style />
+      </Body>
+      <Width>16.92308cm</Width>
+      <Page>
+        <PageFooter>
+          <Height>2.60875cm</Height>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Image Name="Logo">
+              <Source>Embedded</Source>
+              <Value>logo</Value>
+              <Sizing>FitProportional</Sizing>
+              <Top>0.45cm</Top>
+              <Left>0cm</Left>
+              <Height>2cm</Height>
+              <Width>3.12cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingBottom>25pt</PaddingBottom>
+              </Style>
+            </Image>
+            <Textbox Name="PageNumberText">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Parameters!briefPeriod.Value &amp; " | " &amp; (Globals!PageNumber) &amp; " - " &amp; Globals!OverallPageNumber</Value>
+                      <Style>
+                        <FontFamily>Calibri Light</FontFamily>
+                        <FontSize>9pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>0.45cm</Top>
+              <Left>11.73cm</Left>
+              <Height>0.54708cm</Height>
+              <Width>4.27cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>21cm</PageWidth>
+        <InteractiveHeight>28.7cm</InteractiveHeight>
+        <InteractiveWidth>18.46cm</InteractiveWidth>
+        <LeftMargin>2.54cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>2.54cm</TopMargin>
+        <BottomMargin>2.54cm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="brief">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="briefPeriod">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="tableContents">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="executiveSummary">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <EmbeddedImages>
+    <EmbeddedImage Name="logo">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>1b39c122-4961-4959-b66a-9cbeaad655ae</rd:ReportID>
+</Report>

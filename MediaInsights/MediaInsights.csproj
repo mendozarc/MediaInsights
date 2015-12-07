@@ -48,6 +48,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -1164,6 +1166,7 @@
     <Content Include="global\plugins\bootbox\LICENSE.md" />
     <Content Include="global\plugins\bootbox\README.md" />
     <Content Include="global\plugins\autosize\readme.md" />
+    <Content Include="download\File_28112015024857.docx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1269,6 +1272,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="chart-images\" />
     <Folder Include="Classes\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -1277,6 +1281,13 @@
       <Project>{bfb6fca3-417b-48d7-b429-f6bf6e7515ff}</Project>
       <Name>CommSights.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MediaInsights.Reports\MediaInsights.Reports.csproj">
+      <Project>{c26b69ec-6746-463e-b52d-a8e5d79f3fad}</Project>
+      <Name>MediaInsights.Reports</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CoverPage.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

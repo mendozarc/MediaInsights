@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaInsights", "MediaInsig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommSights.Data", "CommSights.Data\CommSights.Data.csproj", "{BFB6FCA3-417B-48D7-B429-F6BF6E7515FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaInsights.Reports", "MediaInsights.Reports\MediaInsights.Reports.csproj", "{C26B69EC-6746-463E-B52D-A8E5D79F3FAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{8DA4AB64-D37D-430B-BDCE-51B8FA9795BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{BFB6FCA3-417B-48D7-B429-F6BF6E7515FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFB6FCA3-417B-48D7-B429-F6BF6E7515FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFB6FCA3-417B-48D7-B429-F6BF6E7515FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26B69EC-6746-463E-B52D-A8E5D79F3FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26B69EC-6746-463E-B52D-A8E5D79F3FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26B69EC-6746-463E-B52D-A8E5D79F3FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26B69EC-6746-463E-B52D-A8E5D79F3FAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA4AB64-D37D-430B-BDCE-51B8FA9795BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA4AB64-D37D-430B-BDCE-51B8FA9795BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA4AB64-D37D-430B-BDCE-51B8FA9795BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA4AB64-D37D-430B-BDCE-51B8FA9795BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,14 @@
+﻿<Image Name="Image">
+	<Source>Embedded</Source>
+	<Value>ImageName</Value>
+	<Sizing>FitProportional</Sizing>
+	<Top>2.7cm</Top>
+	<Left>0cm</Left>
+	<Height>5.2cm</Height>
+	<Width>13.2cm</Width>
+	<Style>
+		<Border>
+			<Style>None</Style>
+		</Border>
+	</Style>
+</Image>
