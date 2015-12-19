@@ -1,0 +1,34 @@
+﻿<Textbox Name="Title">
+	<CanGrow>true</CanGrow>
+	<KeepTogether>true</KeepTogether>
+	<Paragraphs>
+		<Paragraph>
+			<TextRuns>
+				<TextRun>
+					<Value>News Volume</Value>
+					<Style>
+						<FontStyle>Normal</FontStyle>
+						<FontSize>22pt</FontSize>
+						<FontWeight>Bold</FontWeight>
+						<TextDecoration>None</TextDecoration>
+						<Color>#ae1015</Color>
+					</Style>
+				</TextRun>
+			</TextRuns>
+			<Style />
+		</Paragraph>
+	</Paragraphs>
+	<Top>0cm</Top>
+	<Left>0cm</Left>
+	<Height>1cm</Height>
+	<Width>13cm</Width>
+	<Style>
+		<Border>
+			<Style>None</Style>
+		</Border>
+		<PaddingLeft>2pt</PaddingLeft>
+		<PaddingRight>2pt</PaddingRight>
+		<PaddingTop>2pt</PaddingTop>
+		<PaddingBottom>2pt</PaddingBottom>
+	</Style>
+</Textbox>

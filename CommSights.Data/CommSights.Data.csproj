@@ -44,6 +44,7 @@
     <Compile Include="helper_db.cs" />
     <Compile Include="helper_util.cs" />
     <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\ContentFilter.cs" />
     <Compile Include="Models\ContentSummary.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

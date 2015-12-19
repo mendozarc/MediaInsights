@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChartAnalysisReport.cs" />
-    <Compile Include="ChartReport.cs" />
+    <Compile Include="Classes\Paragraph.cs" />
+    <Compile Include="PageReport.cs" />
+    <Compile Include="CommonReport.cs" />
     <Compile Include="ReportBase.cs" />
     <Compile Include="ReportGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -49,9 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\CoverPage.rdlc" />
+    <EmbeddedResource Include="Reports\CoverPageOrig.rdlc" />
     <EmbeddedResource Include="Reports\ExecutiveSummary.rdlc" />
     <EmbeddedResource Include="Reports\TableContents.rdlc" />
-    <EmbeddedResource Include="Reports\WithChart - Copy %282%29.rdlc" />
     <EmbeddedResource Include="Reports\WithChart - Copy.rdlc" />
     <EmbeddedResource Include="Reports\WithChart.rdlc" />
   </ItemGroup>
@@ -68,7 +70,7 @@
     <EmbeddedResource Include="Reports\WithChart\ChartExplanation.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\WithChart\ChartExplanationParagraph.xml" />
+    <EmbeddedResource Include="Reports\WithChart\Paragraph.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\WithChart\Summary.xml" />
@@ -87,6 +89,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\WithChart\PageBreak.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\WithChart\SummaryCallout.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\WithChart\ParagraphEmpty.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommSights.Data\CommSights.Data.csproj">
+      <Project>{bfb6fca3-417b-48d7-b429-f6bf6e7515ff}</Project>
+      <Name>CommSights.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

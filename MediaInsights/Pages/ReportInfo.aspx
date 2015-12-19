@@ -18,37 +18,6 @@
 					<span class="caption-subject font-green-sharp bold uppercase">PROJECT BRIEFS</span>
 					<span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view project list</span>
 				</div>
-				<%--<div class="actions">
-					<div class="btn-group">
-						<a class="btn green-haze btn-circle btn-sm todo-projects-config" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-							<i class="icon-settings"></i>&nbsp; <i class="fa fa-angle-down"></i>
-						</a>
-						<ul class="dropdown-menu pull-right">
-							<li>
-								<a href="javascript:;">
-									<i class="i"></i>New Project </a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="javascript:;">Pending <span class="badge badge-danger">4 </span>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:;">Completed <span class="badge badge-success">12 </span>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:;">Overdue <span class="badge badge-warning">9 </span>
-								</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="javascript:;">
-									<i class="i"></i>Archived Projects </a>
-							</li>
-						</ul>
-					</div>
-				</div>--%>
 			</div>
 			<div class="portlet-body todo-project-list-content">
 				<div class="todo-project-list">
@@ -77,37 +46,6 @@
 					</button>
 				</div>
 			</div>
-			<div id="report_contents" class="portlet-body">
-				<div class="table-toolbar">
-					<!--
-				<div class="row">
-					<div class="col-md-6">
-						<div class="btn-group">
-							<button id="sample_editable_1_new" class="btn green">
-								Add New <i class="fa fa-plus"></i>
-							</button>
-						</div>
-					</div>
-					<!--<div class="col-md-6">
-                                <div class="btn-group pull-right">
-                                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                                        Tools <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:;">Print </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">Save as PDF </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">Export to Excel </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>-->
-				</div>
-			</div>
 			<table id="sample_editable_1" class="table table-striped table-hover table-bordered">
 				<thead>
 					<tr>
@@ -128,63 +66,6 @@
 					</tr>
 				</tbody>
 			</table>
-			<%--<asp:Repeater ID="ProjectContents" runat="server">
-				<HeaderTemplate>
-					<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Title
-								</th>
-								<th>Sequence
-								</th>
-								<th>Layout
-								</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-				</HeaderTemplate>
-				<ItemTemplate>
-					<tr>
-						<td>
-							<a href='/Pages/ReportContent.aspx?id=<%# Eval("ID").ToString() %>'>a
-							</a>
-						</td>
-						<td><%# Eval("Title").ToString() %></td>
-						<td><%# Eval("Sequence").ToString() %></td>
-						<td><%# Eval("LayoutName").ToString() %></td>
-						<td>
-							<input hidden="hidden" value='<%# Eval("ID").ToString() %>' />
-							<a class="edit btn btn-xs blue" href="javascript;">
-								<i class="fa fa-edit"></i>edit
-							</a>
-							<a class="delete btn btn-xs red" href="javascript;">
-								<i class="fa fa-trash-o"></i>delete
-							</a>
-						</td>
-					</tr>
-				</ItemTemplate>
-				<FooterTemplate>
-					</tbody>
-				</table>
-				<table style="width: 100%">
-					<thead>
-						<tr>
-							<th>
-								<div class="btn-group">
-									<button id="sample_editable_1_new" class="btn green">
-										Add New <i class="fa fa-plus"></i>
-									</button>
-								</div>
-							</th>
-							<th>Search</th>
-							<th>Search</th>
-						</tr>
-					</thead>
-				</table>
-				</FooterTemplate>
-			</asp:Repeater>--%>
 		</div>
 		<!--</div>-->
 		<!-- END TABLE PORTLET-->

@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 
 namespace MediaInsights.Reports
 {
@@ -57,35 +58,8 @@ namespace MediaInsights.Reports
 			return _xDoc.OuterXml;
 		}
 
-		public string GenerateChartExplanationParagraph(string text, bool isBold, bool isItalic)
-		{
-			string xmlParagraph = _utility.GetResourceFile("WithChart.ChartExplanationParagraph.xml");
-			_xDoc.LoadXml(xmlParagraph);
-
-			// Value node
-			XmlNode node = _xDoc.LastChild.FirstChild;
-			while (node.Name != "Value" && node.HasChildNodes) node = node.FirstChild;
-			if (text != null) node.InnerXml = text;
-
-			// Style node
-			if (isItalic)
-			{
-				XmlNode nodeFontStyle = node.SelectSingleNode("../Style/FontStyle");
-				if (nodeFontStyle != null) nodeFontStyle.FirstChild.Value = "Italic";
-			}
-
-			// Weight node
-			if (isBold)
-			{
-				XmlNode nodeFontWeight = node.SelectSingleNode("../Style/FontWeight");
-				if (nodeFontWeight != null) nodeFontWeight.FirstChild.Value = "Bold";
-			}
-
-			return _xDoc.OuterXml;
-		}
-
 		// think of the naming
-		public string Image()
+		public string Image(out string imageName)
 		{
 			string xmlTitleLine = _utility.GetResourceFile("WithChart.Image.xml");
 			_xDoc.LoadXml(xmlTitleLine);
@@ -93,9 +67,15 @@ namespace MediaInsights.Reports
 
 			XmlNode node = _xDoc.LastChild;
 			node = node.SelectSingleNode("Value");
-			if (node != null) node.FirstChild.Value = "Image" + Name;
+			imageName = "Image" + Name;
+			if (node != null) node.FirstChild.Value = imageName;
 
 			return _xDoc.OuterXml;
+		}
+
+		public override string GenerateTitle(string title)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

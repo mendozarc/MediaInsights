@@ -3,6 +3,7 @@ using CommSights.Data.Models;
 using System;
 using System.IO;
 using System.Web.Services;
+using Google.DataTable.Net.Wrapper;
 
 namespace MediaInsights.Pages
 {
@@ -15,6 +16,49 @@ namespace MediaInsights.Pages
 			m.SubTitle = "report sections and details";
 		}
 
+		#region Chart Filters
+		[WebMethod]
+		public static string getBriefStartEndDate(int briefId)
+		{
+			Report r = new Report();
+			return helper_util.SerializeDataTableToJSON(
+				r.sp_chart_brief_startenddate_briefId(briefId));
+		}
+
+		[WebMethod]
+		public static string getBriefMediaTypes(int briefId)
+		{
+			Report r = new Report();
+			return helper_util.SerializeDataTableToJSON(
+				r.sp_ac_briefmediatype(briefId));
+		}
+
+		[WebMethod]
+		public static string getCompanyBrands(int briefId)
+		{
+			Report r = new Report();
+			return helper_util.SerializeDataTableToJSON(
+				r.sp_ac_briefbrandget(briefId));
+		}
+
+		[WebMethod]
+		public static string getBriefLanguages(int briefId)
+		{
+			Report r = new Report();
+			return helper_util.SerializeDataTableToJSON(
+				r.sp_ac_briefcliplanguage(briefId));
+		}
+
+		[WebMethod]
+		public static string getBriefMediaTitles(int briefId)
+		{
+			Report r = new Report();
+			return helper_util.SerializeDataTableToJSON(
+				r.sp_ac_briefclipmediatitle(briefId));
+		}
+		#endregion
+
+		#region Load
 		[WebMethod]
 		public static string getCharts()
 		{
@@ -23,12 +67,38 @@ namespace MediaInsights.Pages
 		}
 
 		[WebMethod]
-		public static string getChartParameters(int chartId)
+		public static string getContent(string contentId)
 		{
-			Report r = new Report();
-			return helper_util.SerializeDataTableToJSON(r.sp_ChartParameters_Chart(chartId));
+			return helper_util.SerializeDataTableToJSON((new Report()).sp_ContentSummary_ID(contentId));
 		}
 
+		[WebMethod]
+		public static string getContentAnalysis(string contentId)
+		{
+			return helper_util.SerializeDataTableToJSON((new Report()).sp_Content_ContentSummary(contentId));
+		}
+
+		[WebMethod]
+		public static string getAllChartData()
+		{
+			return helper_util.SerializeDataTableToJSON((new Report()).sp_ChartData_select());
+		}
+
+		[WebMethod]
+		public static string getChartData(string chartDataId)
+		{
+			return helper_util.SerializeDataTableToJSON((new Report()).sp_ChartData_ID(Convert.ToInt32(chartDataId)));
+		}
+
+		[WebMethod]
+		public static string getChartDataValues(string procedure, int brief, string startDate, string endDate, string[] filters)
+		{
+			var dt = (new Report()).sp_ExecuteProcedure(procedure, brief, startDate, endDate, filters);
+			return SystemDataTableConverter.Convert(dt).GetJson();
+		}
+		#endregion
+
+		#region Save
 		[WebMethod]
 		public static int saveSummaryCallout(string contentId, string summary, string callout)
 		{
@@ -42,7 +112,7 @@ namespace MediaInsights.Pages
 
 		[WebMethod]
 		public static int saveContentAnalysis(string id, string name, string contentId, int sequence,
-			int chart, string chartTitle, string analysis, string callout, string imageData, bool isNew)
+			int chartData, int chart, string chartTitle, string analysis, string callout, string imageData, bool isNew)
 		{
 			SaveImage(id, imageData);
 
@@ -51,6 +121,7 @@ namespace MediaInsights.Pages
 			cs.Name = name;
 			cs.ContentSummary = new Guid(contentId);
 			cs.Sequence = sequence;
+			cs.ChartData = chartData;
 			cs.Chart = chart;
 			cs.ChartTitle = chartTitle;
 			cs.Analysis = analysis.Replace('\"', '\'');
@@ -77,21 +148,10 @@ namespace MediaInsights.Pages
 		}
 
 		[WebMethod]
-		public static string getContent(string contentId)
-		{
-			return helper_util.SerializeDataTableToJSON((new Report()).sp_ContentSummary_ID(contentId));
-		}
-
-		[WebMethod]
-		public static string getContentAnalysis(string contentId)
-		{
-			return helper_util.SerializeDataTableToJSON((new Report()).sp_Content_ContentSummary(contentId));
-        }
-
-		[WebMethod]
 		public static int deleteContentAnalysis(string id)
 		{
 			return (new Report()).sp_Contents_delete(id);
 		}
+		#endregion
 	}
 }

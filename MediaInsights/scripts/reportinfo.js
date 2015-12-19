@@ -70,24 +70,27 @@
 					table.DataTable().destroy();
 					table.empty();
 					var ba = [];
-					$.each(JSON.parse(data.d), function () {
-						var a = [];
-						var id = '';
-						$.each(this, function (key, value) {
-							switch (key) {
-								case 'ID':
-									id = value;
-									value = '<a href="/Pages/ReportContent.aspx?id=' + value + '"><i class="fa fa-search"></i></a>';
-									break;
-								case 'LayoutID':
-									return;
-							}
-							a.push(value);
-						})
 
-						a.push(hiddenField.replace('{0}', id) + edLink);
-						ba.push(a);
-					});
+					if (data.d !== null) {
+						$.each(JSON.parse(data.d), function () {
+							var a = [];
+							var id = '';
+							$.each(this, function (key, value) {
+								switch (key) {
+									case 'ID':
+										id = value;
+										value = '<a href="/Pages/ReportContent.aspx?id=' + value + '&brief=' + projectBriefId + '"><i class="fa fa-search"></i></a>';
+										break;
+									case 'LayoutID':
+										return;
+								}
+								a.push(value);
+							})
+
+							a.push(hiddenField.replace('{0}', id) + edLink);
+							ba.push(a);
+						});
+					}
 
 					table.DataTable({
 						data: ba,

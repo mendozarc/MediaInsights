@@ -1,0 +1,16 @@
+﻿<Paragraph>
+	<TextRuns>
+		<TextRun>
+			<Value/>
+			<Style>
+				<FontStyle>Normal</FontStyle>
+				<FontFamily>Calibri Light</FontFamily>
+				<FontSize>6pt</FontSize>
+				<FontWeight>Normal</FontWeight>
+				<TextDecoration>None</TextDecoration>
+				<Color>#262626</Color>
+			</Style>
+		</TextRun>
+	</TextRuns>
+	<Style />
+</Paragraph>

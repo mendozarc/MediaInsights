@@ -2,6 +2,16 @@
 	var charts = [];
 	var contentType = "application/json; charset=utf-8";
 	var contentId = $('#contentId').val();
+	var briefId = $('#briefId').val();
+
+	// brief variables
+	var languages;
+	var mediatypes;
+	var mediatitles;
+	var companies;
+	var brands;
+	var subbrands;
+
 	//var summary = $('label[title="Summary"] + div > textarea');
 	var contentIdSelector = 'input[type="hidden"][data-sequence]';
 	var callout = $('label[title="Callout"] + textarea');
@@ -11,9 +21,38 @@
 
 	//portlet selectors
 	var summarySelector = '#summary + div.note-editor > div.note-editable';
+	var dropDownChartDataSelector = 'select.select2me[data-placeholder="select data"]';
 	var dropDownChartSelector = 'select.select2me[data-placeholder="select chart"]';
+	var titleChartSelector = 'input[type="text"][data-placeholder="chart title"]';
+	var loadChartSelector = 'a[hidden="hidden"][data-id="load_chart"]';
+	var otherFilterSelector = 'select.multi-select[multiple="multiple"]';
+	var startDateSelector = 'input[type="text"][name="from"]';
+	var endDateSelector = 'input[type="text"][name="to"]';
 
-	var handleReportContent = function () {
+	var populateData = function () {
+		// load chart data
+		$.ajax({
+			type: 'POST',
+			url: 'ReportContent.aspx/getAllChartData',
+			contentType: contentType,
+			dataType: "json",
+			success: function (data) {
+				var dData = $(dropDownChartDataSelector);
+				dData.empty();
+				$.each(JSON.parse(data.d), function () {
+					dData.append($("<option></option>")
+						.attr("data-procedure", this.StoredProcedure)
+						.attr("value", this.ID)
+						.attr("title", this.Name)
+						.text(this.Name));
+				});
+				dData.select2();
+			}
+		})
+			.fail(function () {
+				CommSights.alert("<b>Failed!</b> Failed to load chart data.", "danger");
+			});
+
 		// load charts
 		$.ajax({
 			type: 'POST',
@@ -50,8 +89,252 @@
 			.fail(function () {
 				CommSights.alert("<b>Failed!</b> Failed to load charts.", "danger");
 			});
+	};
 
-		// load content
+	var loadFilters = function () {
+		// load start end date
+		$.ajax({
+			type: 'POST',
+			url: 'ReportContent.aspx/getBriefStartEndDate',
+			contentType: contentType,
+			dataType: "json",
+			data: JSON.stringify({ briefId: briefId }),
+			error: function (ts) { alert(ts.responseText) },
+			success: function (data) {
+				var content = JSON.parse(data.d);
+				CSDatePickers.setStartEndDatePickers(content[0].projectstart, content[0].projectend);
+			}
+		}).fail(function () {CommSights.alert("<b>Failed!</b> Failed to load brief settings.", "danger"); });
+
+		// load languages
+		$.ajax({
+			type: 'POST',
+			url: 'ReportContent.aspx/getBriefLanguages',
+			contentType: contentType,
+			dataType: "json",
+			data: JSON.stringify({ briefId: briefId }),
+			error: function (ts) { alert(ts.responseText) },
+			success: function (data) {
+				var optGroup = $("<optgroup></optgroup>").attr("label", 'Languages');
+				$.each(JSON.parse(data.d), function () {
+					optGroup.append($("<option></option>")
+						.attr("value", 'l' + this.languageid)
+						.attr("title", this.languagename)
+						.text(this.languagename));
+				});
+
+				$(otherFilterSelector).append(optGroup);
+				$(otherFilterSelector).multiSelect('refresh');
+			}
+		}).fail(function () { CommSights.alert("<b>Failed!</b> Failed to load brief languages.", "danger"); });
+
+		// load mediatype
+		$.ajax({
+			type: 'POST',
+			url: 'ReportContent.aspx/getBriefMediaTypes',
+			contentType: contentType,
+			dataType: "json",
+			data: JSON.stringify({ briefId: briefId }),
+			success: function (data) {
+				var optGroup = $("<optgroup></optgroup>").attr("label", 'Media Types');
+				$.each(JSON.parse(data.d), function () {
+					optGroup.append($("<option></option>")
+						.attr("value", 'm' + this.mediatypeid)
+						.attr("title", this.mediatypename)
+						.text(this.mediatypename));
+				});
+
+				$(otherFilterSelector).append(optGroup);
+			}
+		}).fail(function () {CommSights.alert("<b>Failed!</b> Failed to load brief media types.", "danger"); });
+		
+		// load mediatitles
+		$.ajax({
+			type: 'POST',
+			url: 'ReportContent.aspx/getBriefMediaTitles',
+			contentType: contentType,
+			dataType: "json",
+			data: JSON.stringify({ briefId: briefId }),
+			error: function (ts) { alert(ts.responseText) },
+			success: function (data) {
+				var optGroup = $("<optgroup></optgroup>").attr("label", 'Media Titles');
+				$.each(JSON.parse(data.d), function () {
+					optGroup.append($("<option></option>")
+						.attr("value", "n" + this.mediatitleid)
+						.attr("title", this.mediatitlename)
+						.text(this.mediatitlename));
+				});
+
+				$(otherFilterSelector).append(optGroup);
+				$(otherFilterSelector).multiSelect('refresh');
+			}
+		}).fail(function () { CommSights.alert("<b>Failed!</b> Failed to load brief mediatitles.", "danger"); });
+
+		// load company/brand
+		$.ajax({
+			type: 'POST',
+			url: 'ReportContent.aspx/getCompanyBrands',
+			contentType: contentType,
+			dataType: "json",
+			data: JSON.stringify({ briefId: briefId }),
+			error: function (ts) { alert(ts.responseText) },
+			success: function (data) {
+				var ogCompanies = $("<optgroup></optgroup>").attr("label", 'Companies');
+				var lastCompanyId = 0;
+				var ogBrands = $("<optgroup></optgroup>").attr("label", 'Brands');
+				var lastBrandId = 0;
+				var ogSubBrands = $("<optgroup></optgroup>").attr("label", 'Sub Brands');
+				$.each(JSON.parse(data.d), function () {
+					if (this.companyid !== '' && lastCompanyId !== this.companyid) {
+						ogCompanies.append($("<option></option>")
+							.attr("value", 'c' + this.companyid)
+							.attr("title", this.CompanyName)
+							.text(this.CompanyName));
+					}
+
+					if (this.brandid !== '' && lastBrandId !== this.brandid) {
+						ogBrands.append($("<option></option>")
+							.attr("value", 'b' + this.brandid)
+							.attr("title", this.BrandName)
+							.text(this.BrandName));
+					}
+
+					if (this.subbrandid !== '') {
+						ogSubBrands.append($("<option></option>")
+							.attr("value", 's' + this.subbrandid)
+							.attr("title", this.Subbrand)
+							.text(this.Subbrand));
+					}
+
+					lastCompanyId = this.companyid;
+					lastBrandId = this.brandid;
+				});
+
+				$(otherFilterSelector).append(ogCompanies);
+				$(otherFilterSelector).append(ogBrands);
+				$(otherFilterSelector).append(ogSubBrands);
+				$(otherFilterSelector).multiSelect('refresh');
+			}
+		}).fail(function () { CommSights.alert("<b>Failed!</b> Failed to load brief companies/brands/subbrands.", "danger"); });
+	};
+
+	var handleReportContent = function () {
+		var initializeControlEvents = function () {
+			$('a.btn:nth-child(2)', main_portlet.children('.portlet-title').children('.actions')).click(function () {
+				saveContent();
+				// trigger other save
+				$.each($('.portlet', div_analysis_portlets), function () {
+					if (!$(this).is(':hidden')) {
+						$('div.actions > a.btn[data-id="save_portlet"]:first', this).trigger('click');
+					} else { return false; }
+				});
+			});
+
+			$('div.actions > a.btn[data-id="save_portlet"]:first', div_analysis_portlets.children()).click(function () {
+				saveContentAnalysis($(this).closest('.portlet'));
+			});
+
+			$('div.actions > a.btn:nth-child(2)', div_analysis_portlets).click(function () {
+				var portlet = $(this).closest('.portlet');
+				var id = $(contentIdSelector, portlet);
+				var idValue = id.val();
+				var clear = true;
+				if (idValue !== 'undefined' && idValue !== '') {
+					bootbox.confirm("Are you sure you want to delete this section?", function (result) {
+						if (result) {
+							$.ajax({
+								type: 'POST',
+								url: 'ReportContent.aspx/deleteContentAnalysis',
+								contentType: contentType,
+								dataType: "json",
+								data: JSON.stringify({ id: idValue }),
+								error: function (ts) { alert(ts.responseText) },
+							})
+							.fail(function () {
+								CommSights.alert("<b>Failed!</b> Failed to delete section.", "danger");
+								clear = false;
+							})
+							.always(function () { resetInputs(); });
+						} else { clear = false; }
+					});
+				} else { resetInputs(); }
+
+				function resetInputs() {
+					if (!clear) return;
+					id.val('');
+					// TODO: clear the chart
+					$('input[type="text"]', portlet).val('');
+					$('div.note-editable', portlet).html('');
+					$('textarea[placeholder="callout..."]', portlet).val('');
+					$(portlet).hide();
+					btnAddPortlet.show();
+				}
+			});
+
+			btnAddPortlet.click(function () {
+				$('a.collapse').trigger('click');
+				var hiddenFields = $(contentIdSelector);
+				var portletCount = 0;
+				$.each(hiddenFields, function () {
+					var analysisPortlet = $(this).parent('.portlet');
+					if (analysisPortlet.is(':hidden')) {
+						analysisPortlet.show();
+						$('a.expand', analysisPortlet).trigger('click');
+						autosize.update($('textarea.autosizeme', analysisPortlet));
+						if (portletCount > 1) btnAddPortlet.hide();
+						return false;
+					}
+					portletCount = portletCount + 1;
+				});
+			})
+
+			$(dropDownChartDataSelector).on('change', function () {
+				loadChartData(this);
+			});
+
+			$(loadChartSelector).on("click", function (e) {
+				e.preventDefault();
+
+				var portlets = $(this).parents('.portlet');
+				var portletGeneratedChart = portlets[0];
+				var portletChart = portlets[1];
+
+				var o = $(dropDownChartDataSelector, portletChart);
+				var filter = {
+					procedure: $('option:selected', o).data('procedure'),
+					brief: briefId,
+					startDate: $(startDateSelector, portletChart).val(),
+					endDate: $(endDateSelector, portletChart).val(),
+					filters: $(otherFilterSelector, portletChart).val()
+				};
+
+				$.ajax({
+					type: 'POST',
+					url: 'ReportContent.aspx/getChartDataValues',
+					contentType: contentType,
+					data: JSON.stringify(filter),
+					dataType: "json",
+					async: false,
+					error: function (ts) { alert(ts.responseText) },
+					success: function (r) {
+						var firstRow = $('.row:first', portletChart);
+						var d = $(dropDownChartSelector, portletChart);
+						var args = {
+							chart: d.val(),
+							chartType: d.find(":selected").attr("data-type"),
+							title: $('input[type="text"][data-placeholder="chart title"]', firstRow).val(),
+							elementStoreImage: $('input[type="hidden"][data-image]', portletChart)
+						};
+
+						CommSights.loadChart(r.d, args, $(".chart-div", portletGeneratedChart)[0]);
+					}
+				})
+					.fail(function () {
+						CommSights.alert("<b>Failed!</b> Failed to load chart data values.", "danger");
+					});
+			});
+		}();
+
 		$.ajax({
 			type: 'POST',
 			url: 'ReportContent.aspx/getContent',
@@ -84,95 +367,6 @@
 				CommSights.alert("<b>Failed!</b> Failed to load content.", "danger");
 			});
 
-		$('a.btn:last', main_portlet.children('.portlet-title').children('.actions')).click(function () {
-			saveContent();
-			// trigger other save
-			$.each($('.portlet', div_analysis_portlets), function () {
-				if (!$(this).is(':hidden')) {
-					$('div.actions > a.btn:first', this).trigger('click');
-				} else { return false; }
-			});
-		});
-
-		$('div.actions > a.btn:first', div_analysis_portlets.children()).click(function () {
-			saveContentAnalysis($(this).closest('.portlet'));
-		});
-
-		$('div.actions > a.btn:nth-child(2)', div_analysis_portlets).click(function () {
-			var portlet = $(this).closest('.portlet');
-			var id = $(contentIdSelector, portlet);
-			var idValue = id.val();
-			var clear = true;
-			if (idValue !== 'undefined' && idValue !== '') {
-				bootbox.confirm("Are you sure you want to delete this section?", function (result) {
-					if (result) {
-						$.ajax({
-							type: 'POST',
-							url: 'ReportContent.aspx/deleteContentAnalysis',
-							contentType: contentType,
-							dataType: "json",
-							data: JSON.stringify({ id: idValue }),
-							error: function (ts) { alert(ts.responseText) },
-						})
-						.fail(function () {
-							CommSights.alert("<b>Failed!</b> Failed to delete section.", "danger");
-							clear = false;
-						})
-						.always(function () { resetInputs(); });
-					} else { clear = false; }
-				});
-			} else { resetInputs(); }
-
-			function resetInputs() {
-				if (!clear) return;
-				id.val('');
-				// TODO: clear the chart
-				$('input[type="text"]', portlet).val('');
-				$('div.note-editable', portlet).html('');
-				$('textarea[placeholder="callout..."]', portlet).val('');
-				$(portlet).hide();
-				btnAddPortlet.show();
-			}
-		});
-
-		btnAddPortlet.click(function () {
-			$('a.collapse').trigger('click');
-			var hiddenFields = $(contentIdSelector);
-			var portletCount = 0;
-			$.each(hiddenFields, function () {
-				var analysisPortlet = $(this).parent('.portlet');
-				if (analysisPortlet.is(':hidden')) {
-					analysisPortlet.show();
-					$('a.expand', analysisPortlet).trigger('click');
-					autosize.update($('textarea.autosizeme', analysisPortlet));
-					if (portletCount > 1) btnAddPortlet.hide();
-					return false;
-				}
-				portletCount = portletCount + 1;
-			});
-		})
-
-		$(dropDownChartSelector).on("change", function (e) {
-			e.preventDefault();
-
-			var parentPortletBody = $(this).closest('.portlet-body');
-			var data = [
-			  ['Year', 'Sales', 'Expenses', 'Profit'],
-			  ['2014', 1000, 400, 200],
-			  ['2015', 1170, 460, 250],
-			  ['2016', 660, 1120, 300],
-			  ['2017', 1030, 540, 350]];
-
-			var p = parentPortletBody.closest('.portlet');
-			var args = {
-				chart: $(this).val(),
-				chartType: $(this).find(":selected").attr("data-type"),
-				title: $('input[type="text"]', parentPortletBody).val(),
-				elementStoreImage: $('input[type="hidden"][data-image]', p.closest('.portlet-body').parent('.portlet'))
-			};
-			CommSights.loadChart(data, args, $(".chart-div", parentPortletBody)[0]);
-		});
-
 		function showMainCallout(show) {
 			var form_group_callout = $('#form_group_callout');
 			if (show) {
@@ -204,9 +398,9 @@
 						var portletAnalysis = inputHidden.parent('.portlet');
 						portletAnalysis.show();
 						autosize.update($('textarea'));
-						$('div.caption > span', portletAnalysis).text(this.Name);
-						$('input[type="text"]', portletAnalysis).val(this.ChartTitle);
-						$('select[data-placeholder="select chart"]', portletAnalysis).val(this.Chart).trigger('change');
+						$('div.caption > span:first', portletAnalysis).text(this.Name);
+						$(titleChartSelector, portletAnalysis).val(this.ChartTitle);
+						$(dropDownChartSelector, portletAnalysis).select2('val', this.Chart);
 						$('div.note-editable', portletAnalysis).html(this.Analysis);
 						$('textarea[placeholder="callout..."]', portletAnalysis).val(this.Callout);
 					});
@@ -215,6 +409,46 @@
 			.fail(function () {
 				CommSights.alert("<b>Failed!</b> Failed to load content analysis.", "danger");
 			});
+		}
+
+		function loadChartData(dd) {
+			var d = $(dd);
+			$.ajax({
+				type: 'POST',
+				url: 'ReportContent.aspx/getChartData',
+				contentType: contentType,
+				data: JSON.stringify({ chartDataId: d.find('option:selected').val() }),
+				dataType: "json",
+				error: function (ts) { alert(ts.responseText) },
+				success: function (data) {
+					var row = d.closest('.row');
+					$.each(JSON.parse(data.d), function () {
+						$(titleChartSelector, row).val(this.Title);
+						$(dropDownChartSelector, row).select2('val', this.Chart);
+					});
+				}
+			})
+				.fail(function () {
+					CommSights.alert("<b>Failed!</b> Failed to load chart data.", "danger");
+				});
+		}
+
+		function getChartDataValues(filter) {
+			$.ajax({
+				type: 'POST',
+				url: 'ReportContent.aspx/getChartDataValues',
+				contentType: contentType,
+				data: JSON.stringify(filter),
+				dataType: "json",
+				async: false,
+				error: function (ts) { alert(ts.responseText) },
+				success: function (data) {
+					return JSON.parse(data.d);
+				}
+			})
+				.fail(function () {
+					CommSights.alert("<b>Failed!</b> Failed to load chart data values.", "danger");
+				});
 		}
 	};
 
@@ -250,21 +484,23 @@
 
 		var portletSummary = $('div.note-editable', portlet);
 		var portletCallout = $('label + textarea[placeholder="callout..."]', portlet);
-		var portletChart = $('select[data-placeholder="select chart"]', portlet);
-		var portletChartTitle = $('input[type="text"]', portlet).val();
+		var portletChart = $(dropDownChartSelector, portlet);
+		var portletChartTitle = $(titleChartSelector, portlet).val();
+		var portletChartData = $(dropDownChartDataSelector, portlet).val();
 		var field_id = $(contentIdSelector, portlet);
 		var field_id_value = field_id.val();
 		var id = field_id_value;
 		if (field_id_value === '') {
 			id = Custom.newGuid();
 		}
-		var name = $('div.caption span', portlet).text();
+		var name = $('div.caption span:first', portlet).text();
 
 		var data = {
 			id: id,
 			name: name,
 			contentId: contentId,
 			sequence: field_id.attr('data-sequence'),
+			chartData: portletChartData,
 			chart: portletChart.val(),
 			chartTitle: portletChartTitle,
 			analysis: portletSummary.html(),
@@ -299,18 +535,23 @@
 				$('.summernote').summernote({
 					height: 100,
 					toolbar: [
-					   ['style', ['bold', 'italic', 'underline', 'clear']],
-					   ['font', ['strikethrough', 'superscript', 'subscript']],
-					   ['fontsize', ['fontsize']],
-					   ['color', ['color']],
-					   ['para', ['ul', 'ol', 'paragraph']],
-					   ['height', ['height']],
+					   //['style', ['bold', 'italic', 'underline', 'clear']],
+					   ['style', ['bold', 'italic']],
+					   //['font', ['strikethrough', 'superscript', 'subscript']],
+					   ['font', ['superscript', 'subscript']],
+					   //['fontsize', ['fontsize']],
+					   //['color', ['color']],
+					   //['para', ['ul', 'ol', 'paragraph']],
+					   //['height', ['height']],
 					   ['misc', ['fullscreen', 'codeview', 'undo', 'redo']]
 					]
 				});
 				Metronic.init(); // init metronic core components
 				Layout.init(); // init current layout
 				ComponentsFormTools2.init();
+				CSDropDowns.init();
+				populateData();
+				loadFilters();
 				handleReportContent();
 			})
 		}

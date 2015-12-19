@@ -4,6 +4,7 @@ using CommSights.Data;
 using MediaInsights.Reports;
 using MRW = Microsoft.Reporting.WebForms;
 using System.IO;
+using System.Data;
 
 namespace MediaInsights.Pages
 {
@@ -61,25 +62,23 @@ namespace MediaInsights.Pages
 
 		protected void generate_report_ServerClick(object sender, EventArgs e)
 		{
-			ReportGenerator.GenerateReport();
+			int briefId = 1;
+
+			ReportGenerator rg = new ReportGenerator(Server.MapPath("~/download/") + Session.SessionID + ".rdlc");
+			rg.ChartImagePath = Server.MapPath("~/chart-images/");
+            string reportPath = rg.Generate(briefId);
 
 			string fileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".docx";
 			string fullFilePath = Server.MapPath("~/download/") + fileName;
 			string extension = string.Empty;
 			string encoding = string.Empty;
-			//string mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 			string mimeType = string.Empty;
             string[] streams;
 			MRW.Warning[] warnings;
 
 			MRW.LocalReport report = new MRW.LocalReport();
-			report.ReportPath = Server.MapPath("~/CoverPage.rdlc");
-			//report.ReportEmbeddedResource = "MediaInsights.Reports.CoverPage.rdlc";
-			//ReportDataSource rds = new ReportDataSource();
-			//rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
-			//rds.Value = dsData;
-			//report.DataSources.Add(rds);
-			//WORDOPENXML
+			report.ReportPath = reportPath;
+			report.SetParameters(GetReportParameters(briefId));
 			Byte[] mybytes = report.Render("WORDOPENXML", null,
 							out mimeType, out encoding,
 							out extension, out streams, out warnings); 
@@ -98,6 +97,26 @@ namespace MediaInsights.Pages
 			Response.Flush();
 			Response.Close();
 			Response.End();
+		}
+
+		private MRW.ReportParameter[] GetReportParameters(int briefId)
+		{
+			Report r = new Report();
+			DataTable dt = r.sp_ac_briefget(briefId);
+			DataRow row = dt.Rows[0];
+
+			DateTime dtStart = Convert.ToDateTime(row["projectstart"]);
+			DateTime dtEnd = Convert.ToDateTime(row["projectend"]);
+
+			string briefPeriod = string.Empty;
+			if (dtStart.Year == dtEnd.Year) briefPeriod = dtStart.ToString("MMMM");
+			else briefPeriod = dtStart.ToString("MMMM yyyy");
+			briefPeriod += " - " + dtEnd.ToString("MMMM yyyy");
+
+			return new MRW.ReportParameter[] {
+				new MRW.ReportParameter("brief", dt.Rows[0]["briefname"].ToString()),
+				new MRW.ReportParameter("briefPeriod", briefPeriod),
+					};
 		}
 	}
 }

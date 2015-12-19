@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Google.DataTable.Net.Wrapper, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.DataTable.Net.Wrapper.3.1.2.0\lib\Google.DataTable.Net.Wrapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -944,6 +948,7 @@
     <Content Include="global\plugins\jquery.mockjax.js" />
     <Content Include="global\plugins\jquery.parallax.js" />
     <Content Include="global\plugins\jquery.pulsate.min.js" />
+    <Content Include="global\plugins\jquery.quicksearch.js" />
     <Content Include="global\plugins\jquery.scrollTo.min.js" />
     <Content Include="global\plugins\jquery.sparkline.min.js" />
     <Content Include="global\plugins\select2\select2-bootstrap.css" />
@@ -999,6 +1004,7 @@
     <Content Include="global\plugins\select2\select2_locale_zh-CN.js" />
     <Content Include="global\plugins\select2\select2_locale_zh-TW.js" />
     <Content Include="global\scripts\metronic.js" />
+    <Content Include="Google.DataTable.Net.Wrapper.XML" />
     <Content Include="Index.aspx" />
     <Content Include="packages.config" />
     <Content Include="scripts\reportcontent.js" />
@@ -1207,9 +1213,13 @@
     <Content Include="styles\css\themes\yellow-crusta.css" />
     <Content Include="styles\css\themes\yellow-orange.css" />
     <Content Include="styles\pages\css\tasks.css" />
+    <Content Include="styles\pages\scripts\components-dropdowns.js" />
+    <Content Include="styles\pages\scripts\components-pickers.js" />
     <Content Include="styles\pages\scripts\custom.js" />
     <Content Include="styles\pages\scripts\table-editable.js" />
+    <Content Include="styles\scripts\commsights-dropdowns.js" />
     <Content Include="styles\scripts\commsights-chart.js" />
+    <Content Include="styles\scripts\commsights-datepickers.js" />
     <Content Include="styles\scripts\commsights.js" />
     <Content Include="styles\scripts\layout.js" />
     <Content Include="styles\scripts\quick-sidebar.js" />

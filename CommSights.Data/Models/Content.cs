@@ -12,6 +12,7 @@ namespace CommSights.Data.Models
 		public string Name { get; set; }
 		public Guid ContentSummary { get; set; }
 		public int Sequence { get; set; }
+		public int ChartData { get; set; }
 		public int Chart { get; set; }
 		public string ChartTitle { get; set; }
 		public string Analysis { get; set; }

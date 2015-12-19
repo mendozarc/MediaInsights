@@ -1,0 +1,41 @@
+﻿<Textbox Name="Callout">
+	<CanGrow>true</CanGrow>
+	<KeepTogether>true</KeepTogether>
+	<Paragraphs>
+		<Paragraph>
+			<TextRuns>
+				<TextRun>
+					<Value>Callout text</Value>
+					<Style>
+						<FontStyle>Normal</FontStyle>
+						<FontFamily>Segoe Script</FontFamily>
+						<FontSize>9pt</FontSize>
+						<FontWeight>Normal</FontWeight>
+						<TextDecoration>None</TextDecoration>
+						<Color>#262626</Color>
+					</Style>
+				</TextRun>
+			</TextRuns>
+			<Style />
+		</Paragraph>
+	</Paragraphs>
+	<Top>1.1cm</Top>
+	<Left>13.75cm</Left>
+	<Height>2cm</Height>
+	<Width>2.4cm</Width>
+	<Style>
+		<Border>
+			<Style>None</Style>
+		</Border>
+		<TopBorder>
+			<Style>Solid</Style>
+		</TopBorder>
+		<BottomBorder>
+			<Style>Solid</Style>
+		</BottomBorder>
+		<PaddingLeft>2pt</PaddingLeft>
+		<PaddingRight>2pt</PaddingRight>
+		<PaddingTop>5pt</PaddingTop>
+		<PaddingBottom>5pt</PaddingBottom>
+	</Style>
+</Textbox>

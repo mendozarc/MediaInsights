@@ -21,3 +21,9 @@ Rounded Portlets
 .portlet.light .form .form-body.custom {
 	padding: 10px;
 }
+
+.ms-container {
+	width: 100%;
+}
+
+.note-editable p {  line-height: 0.8; }

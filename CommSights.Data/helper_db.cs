@@ -17,7 +17,7 @@ namespace CommSights.Data
             return helper_util.GetConfig(databaseName);
         }
 
-        public DataTable QuerytoDataTable(string storedproc, List<SqlParameter> paramlist = null, string dbname = "CS_MAIN",
+        public DataTable QuerytoDataTable(string storedproc, List<SqlParameter> paramlist = null, string dbname = "CS_Insights",
                                            int timeout = 120)
         {
             SQLConn.ConnectionString = DB(dbname);
@@ -40,7 +40,7 @@ namespace CommSights.Data
             return dt;
         }
 
-        internal int ExecuteNonQuery(string storedproc, List<SqlParameter> paramlist = null, string dbname = "CS_MAIN",
+        internal int ExecuteNonQuery(string storedproc, List<SqlParameter> paramlist = null, string dbname = "CS_Insights",
                                            int timeout = 120)
         {
             SQLConn.ConnectionString = DB(dbname);

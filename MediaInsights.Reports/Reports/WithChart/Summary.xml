@@ -1,45 +1,7 @@
 ﻿<Textbox Name="Summary">
 	<CanGrow>true</CanGrow>
 	<KeepTogether>true</KeepTogether>
-	<Paragraphs>
-		<Paragraph>
-			<TextRuns>
-				<TextRun>
-					<Value>Summary text</Value>
-					<Style>
-						<FontStyle>Normal</FontStyle>
-						<FontFamily>Calibri Light</FontFamily>
-						<FontSize>9pt</FontSize>
-						<FontWeight>Normal</FontWeight>
-						<TextDecoration>None</TextDecoration>
-						<Color>#262626</Color>
-					</Style>
-				</TextRun>
-			</TextRuns>
-			<Style />
-		</Paragraph>
-		<Paragraph>
-			<TextRuns>
-				<TextRun>
-					<Value />
-					<Style>
-						<FontStyle>Normal</FontStyle>
-						<FontFamily>Calibri Light</FontFamily>
-						<FontSize>9pt</FontSize>
-						<FontWeight>Normal</FontWeight>
-						<TextDecoration>None</TextDecoration>
-						<Color>#262626</Color>
-					</Style>
-				</TextRun>
-			</TextRuns>
-			<LeftIndent>0cm</LeftIndent>
-			<RightIndent>0cm</RightIndent>
-			<Style>
-				<TextAlign>Left</TextAlign>
-				<LineHeight>10pt</LineHeight>
-			</Style>
-		</Paragraph>
-	</Paragraphs>
+	<Paragraphs />
 	<Top>1.4cm</Top>
 	<Left>0cm</Left>
 	<Height>1cm</Height>

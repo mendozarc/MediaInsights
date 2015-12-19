@@ -22,6 +22,7 @@
 	<link href="/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
 	<link href="/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link href="/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+	<link href="/global/css/plugins.css" rel="stylesheet" type="text/css">
 	<!-- END GLOBAL MANDATORY STYLES -->
 	<!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
 	<!--<link href="global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
@@ -32,18 +33,17 @@
 	<!-- BEGIN PAGE STYLES -->
 	<link href="/styles/pages/css/tasks.css" rel="stylesheet" type="text/css" />
 	<!-- END PAGE STYLES -->
+	<script src="/global/plugins/jquery.min.js" type="text/javascript"></script>
+	<script src="/global/scripts/metronic.js" type="text/javascript"></script>
+	<script src="/styles/scripts/commsights.js" type="text/javascript"></script>
+	<asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 	<!-- BEGIN THEME STYLES -->
-	<!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
 	<link href="/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
 	<link href="/global/css/plugins.css" rel="stylesheet" type="text/css" />
 	<link href="/styles/css/layout.css" rel="stylesheet" type="text/css" />
 	<link href="/styles/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
 	<link href="/styles/css/custom.css" rel="stylesheet" type="text/css" />
 	<!-- END THEME STYLES -->
-	<script src="/global/plugins/jquery.min.js" type="text/javascript"></script>
-	<script src="/global/scripts/metronic.js" type="text/javascript"></script>
-	<script src="/styles/scripts/commsights.js" type="text/javascript"></script>
-	<asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 
 <body class="page-header">
